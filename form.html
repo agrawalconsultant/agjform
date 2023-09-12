@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AGRAWAL CONSULATNTS JOB FORM</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Apply a background color and set font styles for the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #24252A;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        /* Style the header with a gradient background */
+        header {
+            /* background: linear-gradient(90deg, #FD746C 0%, #FF9068 50%, #FFD07E 100%); */
+            color: #fff;
+            padding: 20px;
+            transition: background 0.5s ease;
+        }
+
+        /* Style the header with hover effect */
+        header:hover {
+            /* background: linear-gradient(90deg, #FF9068 0%, #FD746C 50%, #FF9068 100%); */
+        }
+
+        /* Style the page title with animation */
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            animation: morphText 2s ease infinite alternate;
+        }
+
+        /* Style the buttons container */
+        .buttons-container {
+            display: flex;
+            /* flex-direction: column; */
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        /* Style the buttons */
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #FD746C;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Style the buttons on hover */
+        button:hover {
+            background-color: #FF9068;
+        }
+
+        /* Keyframes for text morphing animation */
+        @keyframes morphText {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* Style the paragraph element */
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1></h1>
+    </header>
+
+    <main>
+        <!-- <p>Click on the buttons below:</p> -->
+
+        <!-- Buttons container for centering -->
+        <div class="buttons-container">
+            <!-- Button to redirect to the form-fill page -->
+            <button onclick="redirectToFormFillPage()">FILL JOB FORM</button>
+
+            <!-- Button to update the form page -->
+            <button onclick="updateFormPage()">UPDATE WORK STATUS</button>
+        </div>
+    </main>
+
+    <script>
+        // Function to redirect to the form-fill page
+        function redirectToFormFillPage() {
+            // You can replace 'form-fill-page.html' with the actual URL of your form-fill page.
+            window.location.href = 'fill_form.html';
+        }
+
+        // Function to update the form page
+        function updateFormPage() {
+            // You can replace 'form-page.html' with the actual URL of your form page.
+            window.location.href = 'https://www.appsheet.com/start/bf63f091-5fbb-462c-a853-175d82a6628d';
+        }
+    </script>
+</body>
+</html>
