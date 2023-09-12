@@ -82,19 +82,15 @@
     </div>
 
 
-
-    <!-- Add a div for displaying the error message -->
-    <div id="modeError" class="error-message" style="display: none;">
-      Please select a job receiving mode.
-    </div>
-
-
     <!-- Add a div for displaying the error message -->
     <div id="modeError" class="error-message" style="display: none;">
       Please select a job receiving mode.
     </div>
     <div id="userAssignedError" class="error-message" style="display: none;">
       Job User and Assigned By cannot be the same.
+    </div>
+    <div id="droperror" class="error-message" style="display: none;">
+      Please select valid values from the dropdown lists for Job User and Work Type.
     </div>
 
 
@@ -305,8 +301,15 @@
       !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
       !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
     ) {
-      alert("Please select valid values from the dropdown lists for Job User and Work Type.");
+      // Display the error message for both being the same
+      const droperror = document.getElementById('droperror');
+      droperror.style.display = 'block';
+      droperror.scrollIntoView({ behavior: "smooth" });
       return false;
+    } else {
+      // Hide the error message for both being the same if they are not the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'none';
     }
 
     return true;
@@ -422,4 +425,14 @@
   }
 
   document.body.addEventListener('click', hideUserAssignedError);
+
+  // Add a click event listener to the document body to hide the userAssignedError message
+  function droperror() {
+    const droperror = document.getElementById('droperror');
+    droperror.style.display = 'none';
+  }
+
+  document.body.addEventListener('click', droperror);
+
+
 </script>
