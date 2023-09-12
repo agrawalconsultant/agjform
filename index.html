@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="x-icon" href="shortcut.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOB FORM MANAGEMENT SYSTEM</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #eefbff;
+            background-image: linear-gradient(to bottom, transparent 39px, rgba(0, 0, 0, 0.5) 40px),
+                linear-gradient(to right, transparent 39px, rgba(16, 16, 16, 0.8) 40px);
+            background-size: 40px 40px;
+            overflow: hidden;
+            z-index: -22;
+            /* backdrop-filter: blur(2px); */
+
+        }
+
+        #hero {
+            display: flex;
+            justify-content: center;
+        }
+
+        .content {
+            pointer-events: none;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            margin: 15vh 0vh;
+        }
+
+        .content h1 {
+            margin: 0;
+            padding: 0;
+            font-size: 70px;
+        }
+
+        .content .la {
+            margin-top: 0px;
+            margin-left: 180px;
+        }
+
+        .content .lb {}
+
+        .content .lc {}
+
+        .content .ld {
+            margin-top: 0px;
+            margin-left: 600px;
+        }
+
+
+        .content p {
+            font-size: 1.2rem;
+            font-family: serif;
+            position: absolute;
+            padding: 10px;
+            /* border: 2px solid red; */
+            width: 560px;
+            top: 40vh;
+            backdrop-filter: blur(2px);
+        }
+
+        .content h2 {
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);
+            position: absolute;
+            font-size: .8rem;
+            top: 3vh;
+            left: 3vh;
+            font-family: sans-serif;
+            border: .2px solid rgba(255, 255, 255, 0.4);
+            padding: 6px;
+            border-radius: 10px;
+            box-shadow: rgba(105, 105, 152, 0.5) 0px 7px 29px 0px;
+            color: #252525;
+
+        }
+
+        .background-dot-container {
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vh;
+            height: 100vh;
+        }
+
+        .background-dot {
+            border-radius: 5px;
+            position: absolute;
+            width: .7vh;
+            height: .7vh;
+            background-color: rgb(23, 23, 23);
+            animation: blinkAnimation 1s infinite alternate;
+            z-index: -11;
+            /* Add blinking animation */
+        }
+
+
+        .glw_ball {
+            background-image: linear-gradient(#0b42b6, #ee850d);
+            height: 10vh;
+            width: 10vh;
+
+        }
+
+        /* Define the blinking animation */
+        @keyframes blinkAnimation {
+            from {
+                opacity: .5;
+            }
+
+            to {
+                opacity: 0.1;
+            }
+        }
+
+        /* <!-- search bar---------------------------------------------------------------------- */
+
+
+        .search_btn {
+            justify-content: center;
+            display: flex;
+        }
+
+
+        .glass-container {
+            z-index: +1111;
+            position: absolute;
+            bottom: 10%;
+
+        }
+
+        .bar_btn {
+            display: flex;
+            align-items: center;
+        }
+
+        .glass-input {
+            position: relative;
+            width: 250px;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            /* border: 5px solid red; */
+            background-color: rgb(26, 26, 26);
+            backdrop-filter: blur(3px);
+            color: #ffffff;
+            font-size: 16px;
+            /* transition: background-color 0.3s ease; */
+            outline: none;
+            transition: width 0.5s;
+            box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
+        }
+
+        .glass-input:focus {
+            /* background-color: rgba(255, 255, 255, 0.50); */
+            width: 300px;
+        }
+
+        .glass-label {
+            display: inline-block;
+            position: absolute;
+            transform: translateY(0%);
+            background-color: transparent;
+            font-family: monospace;
+            font-size: 12px;
+            color: #aaa;
+            padding: 0px 12px;
+            animation: typing 2s steps(40, end) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: 1.5px;
+            animation:
+                typing 2s steps(100) infinite alternate;
+            transition: all .2s;
+            pointer-events: none;
+
+
+        }
+
+
+
+
+
+
+        @keyframes typing {
+            from {
+                width: 00;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        .glass-input:focus+.glass-label,
+        .glass-input:not(:placeholder-shown)+.glass-label {
+            transform: translateY(-75%) scale(1);
+            font-size: 10.3px;
+            color: #008cff;
+            opacity: 0;
+        }
+
+        .submit-button {
+            position: absolute;
+            right: -14px;
+            opacity: 1;
+            transform: translateY(0px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 8px 10px;
+            /* margin: 20px; */
+            background-color: #007bff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            /* z-index: -55555; */
+            color: white;
+            transform: rotate(0deg);
+
+        }
+
+        /* .submit-button img {
+            height: 20px;
+            margin: 0;
+            padding: 0;
+            transform: rotate(90deg);
+            color: white;
+        } */
+
+        .glass-input:focus+.glass-label+.submit-button {
+            opacity: 1;
+            transform: translateY(-10px);
+            z-index: +10;
+        }
+
+        /* .glass-input:not(:focus)+.glass-label+.submit-button {
+            opacity: 1;
+            transform: translateY(15px);
+        } */
+
+        .glass-input:focus+.glass-label+.submit-button {
+            transform: rotate(180deg);
+        }
+
+
+        /* <!-- search bar---------------------------------------------------------------------- */
+
+
+        /* glowing ball------------------------------------------------------- */
+
+        .ball {
+            width: 80vh;
+            height: 80vh;
+            background: linear-gradient(45deg, #ff4400, #ffd900);
+            animation: rotate 3s linear infinite;
+            border-radius: 50%;
+            position: absolute;
+            transition: transform 8s ease-out;
+            pointer-events: none;
+            z-index: -111;
+            opacity: .5;
+        }
+
+        @keyframes rotate {
+            0% {
+                filter: blur(15vh) hue-rotate(0deg);
+
+                border-radius: 50%;
+            }
+
+            50% {
+                border-top-left-radius: 10%;
+                border-bottom-right-radius: 10%;
+                border-top-right-radius: 30%;
+            }
+
+            100% {
+                filter: blur(10vh) hue-rotate(360deg);
+                border-radius: 50%;
+            }
+
+        }
+
+
+        /* glowing ball------------------------------------------------------- */
+    </style>
+</head>
+
+<body>
+    <section id="hero">
+
+        <div class="content">
+            <h1 class="la">JOB FORM</h1>
+            <h1 class="lb">FILLING AND MANAGEMENT </h1>
+            <!-- <h1 class="lc">MENAGEMENT</h1> -->
+            <h1 class="ld"> SYSTEM</h1>
+            <h2>AGRAWAL_CONSULTANTS</h2>
+            <p>Kindly remember that this job form portal is currently in its early trial phase. As a precaution, please
+                don't forget to also fill out the form offline. Thank you</p>
+
+            <!-- glowing_ball------------------------------------------------------- -->
+
+            <div class="ball" id="ball"></div>
+
+            <!-- glowing_ball------------------------------------------------------- -->
+
+    </section>
+
+
+    </div>
+
+
+    <!-- search bar---------------------------------------------------------------------- -->
+    <div class="search_btn">
+        <div class="glass-container">
+            <form id="passwordForm">
+                <div class="bar_btn">
+                    <input id="password" class="glass-input" type="password" placeholder=" ">
+                    <label class="glass-label">Enter the password</label>
+                    <button class="submit-button">〱</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- search bar---------------------------------------------------------------------- -->
+
+    <div class="background-dot-container"></div>
+    <script>
+        // Add background dots
+        const backgroundDotContainer = document.querySelector('.background-dot-container');
+        for (let y = -2.5; y < window.innerHeight; y += 40) {
+            for (let x = -2.5; x < window.innerWidth; x += 40) {
+                const dot = document.createElement('div');
+                dot.classList.add('background-dot');
+                dot.style.left = x + 'px';
+                dot.style.top = y + 'px';
+                dot.style.animationDelay = Math.random() * 2 + 's'; // Random delay for blinking animation
+                backgroundDotContainer.appendChild(dot);
+            }
+        }
+
+        // script for ball start from here----------------------------------------------------------------------
+        const ball = document.getElementById('ball');
+
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Calculate the new position of the ball to follow the cursor
+            const ballX = mouseX - ball.clientWidth / 2;
+            const ballY = mouseY - ball.clientHeight / 2;
+
+            // Apply the new position to the ball
+            ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
+        });
+
+
+
+        // script for ball end here----------------------------------------------------------------------
+
+
+        document.getElementById('passwordForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            const password = document.getElementById('password').value;
+
+            // Check password and redirect if it's correct
+            if (password === '1202') {
+                window.location.href = 'https://www.appsheet.com/start/b25fac7e-fb5c-4741-9f2e-7e62a24474a2'; // Change the URL to your desired destination
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+
+            if (password === 'J2324') {
+                window.location.href = 'https://script.google.com/macros/s/AKfycby8ONydwbWvMO3ktBFvHABj2jgDK3tzlnjs8_ShNxB4ZZeDWSNnAjgIY-YLxfxouzNN/exec'; // Change the URL to your desired destination
+            }
+
+        });
+
+
+    </script>
+</body>
+
+</html>
