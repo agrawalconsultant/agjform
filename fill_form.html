@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Form</title>
+  <link rel="stylesheet" href="form_style.css">
+</head>
+
+<body>
+
+
+  <div id="processingIndicator" class="modal">
+    <div class="pro-content">
+      <h2>Processing...</h2>
+      <p>Please wait while we submit your data.</p>
+    </div>
+  </div>
+
+
+
+  <div id="successMessage" class="modal">
+    <div class="modal-content">
+      <h2>Form Submission Successful</h2>
+      <p>Thank you for submitting the form. Here are the details you entered:</p>
+      <div id="submittedData">
+        <!-- Submitted data will be displayed here -->
+      </div>
+      <button id="okayButton">Okay</button>
+    </div>
+  </div>
+
+
+  <!-- <video id="background-video" autoplay loop muted poster="bg.mp4">
+    <source src="bg.mp4" type="video/mp4">
+    </video> -->
+  <h1 class="jobform"></h1>
+  <form method="post" id="form">
+
+    <!-- <div class="reciept_no">
+      <h3>receipt no</h3>
+      <label for="receiptNo"></label>
+      <input type="text" id="receiptNo" name="receiptNo" readonly>
+    </div> -->
+
+
+    <div class="sec_a">
+      <div class="dropdown">
+        <h3>job user</h3>
+        <input name="jobuser" type="text" placeholder="job user" id="searchInput1">
+        <div class="dropdown-content">
+          <a href="#">AJEET SHARMA</a>
+          <a href="#">AMAN GOYAL</a>
+          <a href="#">AMAN GANGIL</a>
+          <a href="#">IBRAHIM GOURI</a>
+          <a href="#">GOVIND GARG</a>
+          <a href="#">MEGHA CHANDIL</a>
+          <a href="#">NANCY GARG </a>
+          <a href="#">NISHANT SHARMA</a>
+          <a href="#">PANKAJ BANSAL</a>
+          <a href="#">RIYA GOYAL</a>
+          <a href="#">SAKSHI BANSAL</a>
+          <a href="#">SOURABH GARG</a>
+        </div>
+      </div>
+
+
+      <div class="mode">
+        <h3>job receiving mode</h3>
+        <div class="button-group">
+          <input name="job_receiving_mode" type="radio" id="mode1" value="PHONE">
+          <label for="mode1">BY PHONE</label>
+
+          <input name="job_receiving_mode" type="radio" id="mode2" value="PERSON">
+          <label for="mode2">BY PERSON</label>
+
+          <input name="job_receiving_mode" type="radio" id="mode3" value="TEAM">
+          <label for="mode3">BY TEAM</label>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Add a div for displaying the error message -->
+    <div id="modeError" class="error-message" style="display: none;">
+      Please select a job receiving mode.
+    </div>
+
+
+    <!-- Add a div for displaying the error message -->
+    <div id="modeError" class="error-message" style="display: none;">
+      Please select a job receiving mode.
+    </div>
+    <div id="userAssignedError" class="error-message" style="display: none;">
+      Job User and Assigned By cannot be the same.
+    </div>
+
+
+    <div class="dropdown" id="assignedByField">
+      <h3>assigned by</h3>
+      <input name="assignby" type="text" placeholder="assigned by" id="searchInput2">
+      <div class="dropdown-content">
+        <a href="#">AJEET SHARMA</a>
+        <a href="#">AMAN GOYAL</a>
+        <a href="#">AMAN GANGIL</a>
+        <a href="#">IBRAHIM GOURI</a>
+        <a href="#">GOVIND GARG</a>
+        <a href="#">MEGHA CHANDIL</a>
+        <a href="#">NANCY GARG</a>
+        <a href="#">NISHANT SHARMA</a>
+        <a href="#">PANKAJ BANSAL</a>
+        <a href="#">RIYA GOYAL</a>
+        <a href="#">SAKSHI BANSAL</a>
+        <a href="#">SOURABH GARG</a>
+        <a href="#">SOURABH AGRAWAL</a>
+        <a href="#">PRAKASH AGRAWAL</a>
+      </div>
+    </div>
+
+
+    <div class="p_detail">
+      <div class="sec_b">
+        <div class="dropdownwt">
+          <h3>work type</h3>
+          <input name="worktype" type="text" placeholder="work type" id="searchInput3">
+          <div class="dropdown-content">
+            <a href="#">ACCOUNTING</a>
+            <a href="#">AUDIT</a>
+            <a href="#">CERTIFICATION</a>
+            <a href="#">REGISTRATION</a>
+            <a href="#">ITR</a>
+            <a href="#">TDS</a>
+            <a href="#">SUBSIDY</a>
+            <a href="#">OTHER</a>
+          </div>
+        </div>
+
+        <div class="p_nm">
+          <h3>party name</h3>
+          <input type="text" id="partyName" name="partyName" placeholder="party Name" required>
+        </div>
+
+
+
+        <div class="pay">
+          <div class="dropdownpay">
+            <input name="payment" type="text" placeholder="payment STATUS" id="searchInput4">
+            <div class="dropdown-content">
+              <a href="#">A/C FOR</a>
+              <a href="#">PAYMENT DONE</a>
+            </div>
+          </div>
+          <input type="number" id="fees" name="fees" step="1" placeholder="fees">
+        </div>
+
+
+
+      </div>
+
+      <div class="d_fee">
+        <div class="disc">
+          <h3>work Discription</h3>
+          <textarea placeholder="work Discription" id="workDescription" name="workDescription" rows="4" cols="50"
+            required></textarea>
+        </div>
+        <input type="text" id="time" name="time" style="display: none;" readonly>
+      </div>
+    </div>
+
+    <div class="sub">
+      <input type="submit" value="Submit">
+
+    </div>
+  </form>
+</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Get references to all three search inputs and dropdown contents
+    const searchInput1 = document.getElementById("searchInput1");
+    const searchInput2 = document.getElementById("searchInput2");
+    const searchInput3 = document.getElementById("searchInput3");
+    const searchInput4 = document.getElementById("searchInput4");
+    const dropdownContent1 = document.querySelectorAll(".dropdown-content")[0];
+    const dropdownContent2 = document.querySelectorAll(".dropdown-content")[1];
+    const dropdownContent3 = document.querySelectorAll(".dropdown-content")[2];
+    const dropdownContent4 = document.querySelectorAll(".dropdown-content")[3];
+
+    // Function to handle dropdown behavior
+    function handleDropdown(searchInput, dropdownContent) {
+      // Show the dropdown when the input field is focused
+      searchInput.addEventListener("focus", function () {
+        dropdownContent.classList.add("show");
+      });
+
+      // Hide the dropdown when the input field loses focus
+      searchInput.addEventListener("blur", function () {
+        setTimeout(function () {
+          dropdownContent.classList.remove("show");
+        }, 200);
+      });
+
+      // Filter options based on user input in real-time
+      searchInput.addEventListener("input", function () {
+        const searchTerm = searchInput.value.toLowerCase();
+        const options = dropdownContent.querySelectorAll("a");
+
+        options.forEach(function (option) {
+          const text = option.textContent.toLowerCase();
+          if (text.includes(searchTerm)) {
+            option.style.display = "inline-block";
+          } else {
+            option.style.display = "none";
+          }
+        });
+
+        // Show/hide the dropdown based on whether there are matching options
+        if (dropdownContent.querySelector("a[style='display: inline-block;']")) {
+          dropdownContent.classList.add("show");
+        } else {
+          dropdownContent.classList.remove("show");
+        }
+      });
+
+      // Handle option selection
+      dropdownContent.addEventListener("click", function (e) {
+        if (e.target.tagName === "A") {
+          searchInput.value = e.target.textContent;
+          dropdownContent.classList.remove("show");
+        }
+      });
+    }
+
+    // Call the function for each dropdown
+    handleDropdown(searchInput1, dropdownContent1);
+    handleDropdown(searchInput2, dropdownContent2);
+    handleDropdown(searchInput3, dropdownContent3);
+    handleDropdown(searchInput4, dropdownContent4);
+  });
+
+  const jobReceivingModeInputs = document.querySelectorAll('input[name="job_receiving_mode"]');
+  const assignedByField = document.getElementById('assignedByField');
+  const form = document.querySelector('#form');
+  const jobUserDropdown = document.querySelector('#searchInput1');
+  const assignedByDropdown = document.querySelector('#searchInput2');
+  const workTypeDropdown = document.querySelector('#searchInput3');
+  const payment = document.querySelector('#searchInput4');
+
+  const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgFQ/exec";
+
+  // Function to check and update the visibility of the "Assigned by" field
+  function updateAssignedByFieldVisibility() {
+    const mode3RadioButton = document.getElementById('mode3');
+    assignedByField.style.display = mode3RadioButton.checked ? 'inline-block' : 'none';
+  }
+
+  // Add event listeners to all radio buttons
+  jobReceivingModeInputs.forEach((input) => {
+    input.addEventListener('change', updateAssignedByFieldVisibility);
+  });
+
+  // Initial check when the page loads to ensure the correct initial state
+  updateAssignedByFieldVisibility();
+
+  // Function to validate form submission
+  async function validateFormSubmission() {
+    const selectedJobUser = jobUserDropdown.value;
+    const selectedAssignedBy = assignedByDropdown.value;
+    const selectedWorkType = workTypeDropdown.value;
+
+    // Check if one of the radio buttons is selected
+    const mode1RadioButton = document.getElementById('mode1');
+    const mode2RadioButton = document.getElementById('mode2');
+    const mode3RadioButton = document.getElementById('mode3');
+    const isModeSelected = mode1RadioButton.checked || mode2RadioButton.checked || mode3RadioButton.checked;
+
+    if (!isModeSelected) {
+      // Display the error message for mode selection
+      const modeError = document.getElementById('modeError');
+      modeError.style.display = 'block';
+      modeError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for mode selection if a mode is selected
+      const modeError = document.getElementById('modeError');
+      modeError.style.display = 'none';
+    }
+
+    // Check if Job User and Assigned By are the same
+    if (selectedJobUser === selectedAssignedBy) {
+      // Display the error message for both being the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'block';
+      userAssignedError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for both being the same if they are not the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'none';
+    }
+
+    if (
+      !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
+      !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
+    ) {
+      alert("Please select valid values from the dropdown lists for Job User and Work Type.");
+      return false;
+    }
+
+    return true;
+  }
+
+  // Function to validate if a value is in the dropdown list
+  function isValueInDropdown(value, dropdownContent) {
+    const options = dropdownContent.querySelectorAll("a");
+    for (let option of options) {
+      if (option.textContent.toLowerCase() === value.toLowerCase()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // Function to reset the form
+  function resetForm() {
+    form.reset(); // Reset the form element
+    // Reset any additional fields or elements as needed
+  }
+
+  // Function to show the processing indicator
+  function showProcessingIndicator() {
+    const processingIndicator = document.getElementById('processingIndicator');
+    processingIndicator.style.display = 'block';
+  }
+
+  // Function to hide the processing indicator
+  function hideProcessingIndicator() {
+    const processingIndicator = document.getElementById('processingIndicator');
+    processingIndicator.style.display = 'none';
+  }
+
+  // Function to display the success message modal
+  function displaySuccessModal(formData) {
+    const successModal = document.getElementById('successMessage');
+    const submittedDataContainer = document.getElementById('submittedData');
+
+    // Populate the submitted data container with the form data
+    submittedDataContainer.innerHTML = formData;
+
+    // Display the success modal
+    successModal.style.display = 'block';
+
+    const okayButton = document.getElementById('okayButton');
+    okayButton.addEventListener('click', function () {
+      successModal.style.display = 'none';
+
+      // Reset the form
+      resetForm();
+    });
+  }
+
+  // Function to get the submitted form data for display
+  function getSubmittedFormData(formData) {
+    const submittedData = [];
+
+    for (const pair of formData.entries()) {
+      submittedData.push(`<p><strong>${pair[0]}:</strong> ${pair[1]}</p>`);
+    }
+
+    return submittedData.join('');
+  }
+
+  // Event listener for form submission
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (await validateFormSubmission()) {
+      showProcessingIndicator(); // Show the processing indicator while submitting
+
+      // Capture the current date and time
+      const currentDateTime = new Date().toLocaleString();
+
+      // Set the current date and time as the value of the "time" field
+      document.getElementById('time').value = currentDateTime;
+
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
+        const result = await response.text();
+        console.log(result);
+
+        // Hide the processing indicator once the submission is complete
+        hideProcessingIndicator();
+
+        // Display success message with submitted data
+        displaySuccessModal(getSubmittedFormData(formData));
+      } catch (error) {
+        console.error("Error:", error);
+
+        // Hide the processing indicator in case of an error
+        hideProcessingIndicator();
+      }
+    }
+  });
+
+  // Add a click event listener to the document body to hide the mode error message
+  function hideModeError() {
+    const modeError = document.getElementById('modeError');
+    modeError.style.display = 'none';
+  }
+
+  document.body.addEventListener('click', hideModeError);
+
+  // Add a click event listener to the document body to hide the userAssignedError message
+  function hideUserAssignedError() {
+    const userAssignedError = document.getElementById('userAssignedError');
+    userAssignedError.style.display = 'none';
+  }
+
+  document.body.addEventListener('click', hideUserAssignedError);
+</script>
