@@ -7,6 +7,7 @@
   <title>Job Form</title>
   <link rel="stylesheet" href="form_style.css">
 </head>
+
 <body>
 
 
@@ -47,7 +48,7 @@
     <div class="sec_a">
       <div class="dropdown">
         <h3>job user</h3>
-        <input name="jobuser" type="text" placeholder="job user" id="searchInput1" autocomplete="off" >
+        <input name="jobuser" type="text" placeholder="job user" id="searchInput1" autocomplete="off">
         <div class="dropdown-content">
           <a href="#">AJEET SHARMA</a>
           <a href="#">AMAN GOYAL</a>
@@ -81,7 +82,6 @@
     </div>
 
 
-    <!-- Add a div for displaying the error message -->
     <div id="modeError" class="error-message" style="display: none;">
       Please select a job receiving mode.
     </div>
@@ -91,29 +91,37 @@
     <div id="droperror" class="error-message" style="display: none;">
       Please select valid values from the dropdown lists for Job User and Work Type.
     </div>
-
-
-    <div class="dropdown" id="assignedByField">
-      <h3>assigned by</h3>
-      <input name="assignby" type="text" placeholder="assigned by" id="searchInput2" autocomplete="off">
-      <div class="dropdown-content">
-        <a href="#">AJEET SHARMA</a>
-        <a href="#">AMAN GOYAL</a>
-        <a href="#">AMAN GANGIL</a>
-        <a href="#">IBRAHIM GOURI</a>
-        <a href="#">GOVIND GARG</a>
-        <a href="#">MEGHA CHANDIL</a>
-        <a href="#">NANCY GARG</a>
-        <a href="#">NISHANT SHARMA</a>
-        <a href="#">PANKAJ BANSAL</a>
-        <a href="#">RIYA GOYAL</a>
-        <a href="#">SAKSHI BANSAL</a>
-        <a href="#">SOURABH GARG</a>
-        <a href="#">SOURABH AGRAWAL</a>
-        <a href="#">PRAKASH AGRAWAL</a>
-      </div>
+    <div id="assignedByerror" class="error-message" style="display: none;">
+      Please select the team member name from ASSIGNED BY.
     </div>
 
+    <div id="teamAssignmentAlert" class="error-message" style="display: none;">
+      Assigned by is mandatory when BY TEAM is selected.
+    </div>
+    
+
+    <div id="assignedByFieldContainer">
+      <div class="dropdown" id="assignedByField">
+        <h3>assigned by</h3>
+        <input name="assignby" type="text" placeholder="assigned by" id="searchInput2" autocomplete="off">
+        <div class="dropdown-content">
+          <a href="#">AJEET SHARMA</a>
+          <a href="#">AMAN GOYAL</a>
+          <a href="#">AMAN GANGIL</a>
+          <a href="#">IBRAHIM GOURI</a>
+          <a href="#">GOVIND GARG</a>
+          <!-- <a href="#">MEGHA CHANDIL</a> -->
+          <!-- <a href="#">NANCY GARG</a> -->
+          <a href="#">NISHANT SHARMA</a>
+          <a href="#">PANKAJ BANSAL</a>
+          <!-- <a href="#">RIYA GOYAL</a> -->
+          <!-- <a href="#">SAKSHI BANSAL</a> -->
+          <a href="#">SOURABH GARG</a>
+          <a href="#">SOURABH AGRAWAL</a>
+          <a href="#">PRAKASH AGRAWAL</a>
+        </div>
+      </div>
+    </div>
 
     <div class="p_detail">
       <div class="sec_b">
@@ -185,18 +193,18 @@
 
 
 
-     // Function to handle the keydown event
-     function handleKeyDown(event) {
-        const successModal = document.getElementById('successMessage');
-        const okayButton = document.getElementById('okayButton');
+    // Function to handle the keydown event
+    function handleKeyDown(event) {
+      const successModal = document.getElementById('successMessage');
+      const okayButton = document.getElementById('okayButton');
 
-        if (event.key === 'Enter' && successModal.style.display === 'block') {
-            // Prevent the default behavior of the Enter key
-            event.preventDefault();
+      if (event.key === 'Enter' && successModal.style.display === 'block') {
+        // Prevent the default behavior of the Enter key
+        event.preventDefault();
 
-            // Trigger a click on the "Okay" button
-            okayButton.click();
-        }
+        // Trigger a click on the "Okay" button
+        okayButton.click();
+      }
     }
 
     // Add a keydown event listener to the document body
@@ -204,7 +212,7 @@
 
 
 
-    
+
 
     // Function to handle dropdown behavior
     function handleDropdown(searchInput, dropdownContent) {
@@ -268,74 +276,94 @@
 
   const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgFQ/exec";
 
-  // Function to check and update the visibility of the "Assigned by" field
+  
   function updateAssignedByFieldVisibility() {
     const mode3RadioButton = document.getElementById('mode3');
-    assignedByField.style.display = mode3RadioButton.checked ? 'inline-block' : 'none';
+    const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
+
+    if (mode3RadioButton.checked) {
+      assignedByFieldContainer.style.display = 'block';
+    } else {
+      assignedByFieldContainer.style.display = 'none';
+    }
   }
 
-  // Add event listeners to all radio buttons
-  jobReceivingModeInputs.forEach((input) => {
-    input.addEventListener('change', updateAssignedByFieldVisibility);
+  // Call the updateAssignedByFieldVisibility function when the page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    updateAssignedByFieldVisibility();
   });
 
-  // Initial check when the page loads to ensure the correct initial state
-  updateAssignedByFieldVisibility();
-
+  // Add a change event listener to the radio buttons to update visibility
+  jobReceivingModeInputs.forEach(function (input) {
+    input.addEventListener("change", updateAssignedByFieldVisibility);
+  });
   // Function to validate form submission
-  async function validateFormSubmission() {
-    const selectedJobUser = jobUserDropdown.value;
-    const selectedAssignedBy = assignedByDropdown.value;
-    const selectedWorkType = workTypeDropdown.value;
+async function validateFormSubmission() {
+  const selectedJobUser = jobUserDropdown.value;
+  const selectedAssignedBy = assignedByDropdown.value;
+  const selectedWorkType = workTypeDropdown.value;
 
-    // Check if one of the radio buttons is selected
-    const mode1RadioButton = document.getElementById('mode1');
-    const mode2RadioButton = document.getElementById('mode2');
-    const mode3RadioButton = document.getElementById('mode3');
-    const isModeSelected = mode1RadioButton.checked || mode2RadioButton.checked || mode3RadioButton.checked;
+  // Check if one of the radio buttons is selected
+  const mode1RadioButton = document.getElementById('mode1');
+  const mode2RadioButton = document.getElementById('mode2');
+  const mode3RadioButton = document.getElementById('mode3');
+  const isModeSelected = mode1RadioButton.checked || mode2RadioButton.checked || mode3RadioButton.checked;
 
-    if (!isModeSelected) {
-      // Display the error message for mode selection
-      const modeError = document.getElementById('modeError');
-      modeError.style.display = 'block';
-      modeError.scrollIntoView({ behavior: "smooth" });
-      return false;
-    } else {
-      // Hide the error message for mode selection if a mode is selected
-      const modeError = document.getElementById('modeError');
-      modeError.style.display = 'none';
-    }
-
-    // Check if Job User and Assigned By are the same
-    if (selectedJobUser === selectedAssignedBy) {
-      // Display the error message for both being the same
-      const userAssignedError = document.getElementById('userAssignedError');
-      userAssignedError.style.display = 'block';
-      userAssignedError.scrollIntoView({ behavior: "smooth" });
-      return false;
-    } else {
-      // Hide the error message for both being the same if they are not the same
-      const userAssignedError = document.getElementById('userAssignedError');
-      userAssignedError.style.display = 'none';
-    }
-
-    if (
-      !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
-      !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
-    ) {
-      // Display the error message for both being the same
-      const droperror = document.getElementById('droperror');
-      droperror.style.display = 'block';
-      droperror.scrollIntoView({ behavior: "smooth" });
-      return false;
-    } else {
-      // Hide the error message for both being the same if they are not the same
-      const userAssignedError = document.getElementById('userAssignedError');
-      userAssignedError.style.display = 'none';
-    }
-
-    return true;
+  if (!isModeSelected) {
+    // Display the error message for mode selection
+    const modeError = document.getElementById('modeError');
+    modeError.style.display = 'block';
+    modeError.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the error message for mode selection if a mode is selected
+    const modeError = document.getElementById('modeError');
+    modeError.style.display = 'none';
   }
+
+  // Check if Job User and Assigned By are the same
+  if (selectedJobUser === selectedAssignedBy) {
+    // Display the error message for both being the same
+    const userAssignedError = document.getElementById('userAssignedError');
+    userAssignedError.style.display = 'block';
+    userAssignedError.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the error message for both being the same if they are not the same
+    const userAssignedError = document.getElementById('userAssignedError');
+    userAssignedError.style.display = 'none';
+  }
+
+  // Check if "BY TEAM" is selected and the "Assigned by" field is empty
+  if (mode3RadioButton.checked && selectedAssignedBy.trim() === '') {
+    // Show the alert message for team assignment
+    const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
+    teamAssignmentAlert.style.display = 'block';
+    teamAssignmentAlert.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the alert message for team assignment if conditions are met
+    const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
+    teamAssignmentAlert.style.display = 'none';
+  }
+
+  if (
+    !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
+    !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
+  ) {
+    // Display the error message for both being the same
+    const droperror = document.getElementById('droperror');
+    droperror.style.display = 'block';
+    droperror.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the error message for both being the same if they are not the same
+    const userAssignedError = document.getElementById('userAssignedError');
+    userAssignedError.style.display = 'none';
+  }
+
+  return true;
+}
 
   // Function to validate if a value is in the dropdown list
   function isValueInDropdown(value, dropdownContent) {
@@ -401,6 +429,15 @@
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (await validateFormSubmission()) {
+      // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
+      const mode3RadioButton = document.getElementById('mode3');
+      const assignedByInput = document.querySelector('#searchInput2');
+
+      if (mode3RadioButton.checked && !assignedByInput.value.trim()) {
+        // Show an error message and prevent form submission
+        alert("Assigned by is mandatory when BY TEAM is selected.");
+        return;
+      }
       showProcessingIndicator(); // Show the processing indicator while submitting
 
       // Capture the current date and time
@@ -449,4 +486,11 @@
     droperror.style.display = 'none';
   }
   document.body.addEventListener('click', droperror);
+
+  function hideteamAssignmentAlert() {
+    const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
+    teamAssignmentAlert.style.display = 'none';
+  }
+  document.body.addEventListener('click', hideteamAssignmentAlert);
+
 </script>
