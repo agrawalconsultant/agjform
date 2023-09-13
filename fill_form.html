@@ -98,7 +98,11 @@
     <div id="teamAssignmentAlert" class="error-message" style="display: none;">
       Assigned by is mandatory when BY TEAM is selected.
     </div>
-    
+
+    <div id="assignedByError" class="error-message" style="display: none;">
+      Please select a valid name from the ASSIGNED BY dropdown.
+    </div>
+
 
     <div id="assignedByFieldContainer">
       <div class="dropdown" id="assignedByField">
@@ -276,7 +280,7 @@
 
   const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgFQ/exec";
 
-  
+
   function updateAssignedByFieldVisibility() {
     const mode3RadioButton = document.getElementById('mode3');
     const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
@@ -297,7 +301,7 @@
   jobReceivingModeInputs.forEach(function (input) {
     input.addEventListener("change", updateAssignedByFieldVisibility);
   });
-  // Function to validate form submission
+ // Function to validate form submission
 async function validateFormSubmission() {
   const selectedJobUser = jobUserDropdown.value;
   const selectedAssignedBy = assignedByDropdown.value;
@@ -345,6 +349,19 @@ async function validateFormSubmission() {
     // Hide the alert message for team assignment if conditions are met
     const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
     teamAssignmentAlert.style.display = 'none';
+  }
+
+  // Check if "BY TEAM" is selected and the value in "Assigned by" field is not in the dropdown list
+  if (mode3RadioButton.checked && !isValueInDropdown(selectedAssignedBy, document.querySelectorAll(".dropdown-content")[1])) {
+    // Show the error message for invalid assigned by value
+    const assignedByError = document.getElementById('assignedByError');
+    assignedByError.style.display = 'block';
+    assignedByError.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the error message for invalid assigned by value if it is valid
+    const assignedByError = document.getElementById('assignedByError');
+    assignedByError.style.display = 'none';
   }
 
   if (
@@ -492,5 +509,11 @@ async function validateFormSubmission() {
     teamAssignmentAlert.style.display = 'none';
   }
   document.body.addEventListener('click', hideteamAssignmentAlert);
+
+  function hideassignedByError() {
+    const assignedByError = document.getElementById('assignedByError');
+    assignedByError.style.display = 'none';
+  }
+  document.body.addEventListener('click', hideassignedByError);
 
 </script>
