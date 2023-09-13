@@ -7,7 +7,6 @@
   <title>Job Form</title>
   <link rel="stylesheet" href="form_style.css">
 </head>
-
 <body>
 
 
@@ -48,7 +47,7 @@
     <div class="sec_a">
       <div class="dropdown">
         <h3>job user</h3>
-        <input name="jobuser" type="text" placeholder="job user" id="searchInput1">
+        <input name="jobuser" type="text" placeholder="job user" id="searchInput1" autocomplete="off" >
         <div class="dropdown-content">
           <a href="#">AJEET SHARMA</a>
           <a href="#">AMAN GOYAL</a>
@@ -96,7 +95,7 @@
 
     <div class="dropdown" id="assignedByField">
       <h3>assigned by</h3>
-      <input name="assignby" type="text" placeholder="assigned by" id="searchInput2">
+      <input name="assignby" type="text" placeholder="assigned by" id="searchInput2" autocomplete="off">
       <div class="dropdown-content">
         <a href="#">AJEET SHARMA</a>
         <a href="#">AMAN GOYAL</a>
@@ -120,7 +119,7 @@
       <div class="sec_b">
         <div class="dropdownwt">
           <h3>work type</h3>
-          <input name="worktype" type="text" placeholder="work type" id="searchInput3">
+          <input name="worktype" type="text" placeholder="work type" id="searchInput3" autocomplete="off">
           <div class="dropdown-content">
             <a href="#">ACCOUNTING</a>
             <a href="#">AUDIT</a>
@@ -135,20 +134,20 @@
 
         <div class="p_nm">
           <h3>party name</h3>
-          <input type="text" id="partyName" name="partyName" placeholder="party Name" required>
+          <input type="text" id="partyName" name="partyName" placeholder="party Name" autocomplete="off" required>
         </div>
 
 
 
         <div class="pay">
           <div class="dropdownpay">
-            <input name="payment" type="text" placeholder="payment STATUS" id="searchInput4">
+            <input name="payment" type="text" placeholder="payment STATUS" id="searchInput4" autocomplete="off">
             <div class="dropdown-content">
               <a href="#">A/C FOR</a>
               <a href="#">PAYMENT DONE</a>
             </div>
           </div>
-          <input type="number" id="fees" name="fees" step="1" placeholder="fees">
+          <input type="number" id="fees" name="fees" step="1" placeholder="fees" autocomplete="off">
         </div>
 
 
@@ -183,6 +182,29 @@
     const dropdownContent2 = document.querySelectorAll(".dropdown-content")[1];
     const dropdownContent3 = document.querySelectorAll(".dropdown-content")[2];
     const dropdownContent4 = document.querySelectorAll(".dropdown-content")[3];
+
+
+
+     // Function to handle the keydown event
+     function handleKeyDown(event) {
+        const successModal = document.getElementById('successMessage');
+        const okayButton = document.getElementById('okayButton');
+
+        if (event.key === 'Enter' && successModal.style.display === 'block') {
+            // Prevent the default behavior of the Enter key
+            event.preventDefault();
+
+            // Trigger a click on the "Okay" button
+            okayButton.click();
+        }
+    }
+
+    // Add a keydown event listener to the document body
+    document.body.addEventListener('keydown', handleKeyDown);
+
+
+
+    
 
     // Function to handle dropdown behavior
     function handleDropdown(searchInput, dropdownContent) {
@@ -409,30 +431,22 @@
       }
     }
   });
-
   // Add a click event listener to the document body to hide the mode error message
   function hideModeError() {
     const modeError = document.getElementById('modeError');
     modeError.style.display = 'none';
   }
-
   document.body.addEventListener('click', hideModeError);
-
   // Add a click event listener to the document body to hide the userAssignedError message
   function hideUserAssignedError() {
     const userAssignedError = document.getElementById('userAssignedError');
     userAssignedError.style.display = 'none';
   }
-
   document.body.addEventListener('click', hideUserAssignedError);
-
   // Add a click event listener to the document body to hide the userAssignedError message
   function droperror() {
     const droperror = document.getElementById('droperror');
     droperror.style.display = 'none';
   }
-
   document.body.addEventListener('click', droperror);
-
-
 </script>
