@@ -103,6 +103,10 @@
       Please select a valid name from the ASSIGNED BY dropdown.
     </div>
 
+    <div id="paymentError" class="error-message" style="display: none;">
+      Please select a valid payment status from the dropdown list.
+    </div>
+
 
     <div id="assignedByFieldContainer">
       <div class="dropdown" id="assignedByField">
@@ -133,7 +137,8 @@
           <h3>work type</h3>
           <input name="worktype" type="text" placeholder="work type" id="searchInput3" autocomplete="off">
           <div class="dropdown-content">
-           <a href="#">BANKING</a>
+
+            <a href="#">BANKING</a>
             <a href="#">ACCOUNTING</a>
             <a href="#">REGISTRATION</a>
             <a href="#">CERTIFICATION</a>
@@ -151,8 +156,6 @@
           <input type="text" id="partyName" name="partyName" placeholder="party Name" autocomplete="off" required>
         </div>
 
-
-
         <div class="pay">
           <div class="dropdownpay">
             <input name="payment" type="text" placeholder="payment STATUS" id="searchInput4" autocomplete="off">
@@ -163,7 +166,6 @@
           </div>
           <input type="number" id="fees" name="fees" step="1" placeholder="fees" autocomplete="off">
         </div>
-
 
 
       </div>
@@ -215,10 +217,6 @@
 
     // Add a keydown event listener to the document body
     document.body.addEventListener('keydown', handleKeyDown);
-
-
-
-
 
     // Function to handle dropdown behavior
     function handleDropdown(searchInput, dropdownContent) {
@@ -381,6 +379,24 @@ async function validateFormSubmission() {
     userAssignedError.style.display = 'none';
   }
 
+  const searchInput4 = document.getElementById('searchInput4');
+  const paymentDropdownContent = document.querySelectorAll(".dropdown-content")[3];
+
+  const selectedPayment = searchInput4.value.trim();
+  const isPaymentInDropdown = isValueInDropdown(selectedPayment, paymentDropdownContent);
+
+  if (!isPaymentInDropdown) {
+    // Display an error message for invalid payment
+    const paymentError = document.getElementById('paymentError');
+    paymentError.style.display = 'block';
+    paymentError.scrollIntoView({ behavior: "smooth" });
+    return false;
+  } else {
+    // Hide the error message for invalid payment if it is valid
+    const paymentError = document.getElementById('paymentError');
+    paymentError.style.display = 'none';
+  }
+
   return true;
 }
 
@@ -512,10 +528,16 @@ async function validateFormSubmission() {
   }
   document.body.addEventListener('click', hideteamAssignmentAlert);
 
-  function hideassignedByError() {
+  function hideassignedByError() {  
     const assignedByError = document.getElementById('assignedByError');
     assignedByError.style.display = 'none';
   }
   document.body.addEventListener('click', hideassignedByError);
+
+  function hidepaymentError() {
+    const paymentError = document.getElementById('paymentError');
+    paymentError.style.display = 'none';
+  }
+  document.body.addEventListener('click', hidepaymentError);
 
 </script>
