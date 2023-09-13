@@ -10,10 +10,10 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #eefbff;
+            /* background-color: #eefbff;
             background-image: linear-gradient(to bottom, transparent 39px, rgba(0, 0, 0, 0.5) 40px),
                 linear-gradient(to right, transparent 39px, rgba(16, 16, 16, 0.8) 40px);
-            background-size: 40px 40px;
+            background-size: 40px 40px; */
             overflow: hidden;
             z-index: -22;
             /* backdrop-filter: blur(2px); */
@@ -63,12 +63,14 @@
             /* border: 2px solid red; */
             width: 560px;
             top: 40vh;
-            backdrop-filter: blur(2px);
+            /* backdrop-filter: blur(2px); */
+            /* background-color: rgba(rgb(255, 255, 255), rgb(255, 255, 255), rgb(255, 255, 255), 1); */
+            background-color: #ffffff74 ;
         }
 
         .content h2 {
-            background-color: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(2px);
+            /* background-color: rgba(255, 255, 255, 0.3); */
+            /* backdrop-filter: blur(2px); */
             position: absolute;
             font-size: .8rem;
             top: 3vh;
@@ -77,7 +79,7 @@
             border: .2px solid rgba(255, 255, 255, 0.4);
             padding: 6px;
             border-radius: 10px;
-            box-shadow: rgba(105, 105, 152, 0.5) 0px 7px 29px 0px;
+            /* box-shadow: rgba(105, 105, 152, 0.5) 0px 7px 29px 0px; */
             color: #252525;
 
         }
@@ -102,12 +104,12 @@
         } */
 
 
-        .glw_ball {
+        /* .glw_ball {
             background-image: linear-gradient(#0b42b6, #ee850d);
             height: 10vh;
             width: 10vh;
 
-        }
+        } */
 
         /* Define the blinking animation */
         /* @keyframes blinkAnimation {
@@ -176,9 +178,9 @@
             white-space: nowrap;
             overflow: hidden;
             letter-spacing: 1.5px;
-            animation:
-                typing 2s steps(100) infinite alternate;
-            transition: all .2s;
+            /* animation:
+                typing 2s steps(100) infinite alternate; */
+            /* transition: all .2s; */
             pointer-events: none;
 
 
@@ -189,7 +191,7 @@
 
 
 
-        @keyframes typing {
+        /* @keyframes typing {
             from {
                 width: 00;
             }
@@ -197,7 +199,7 @@
             to {
                 width: 100%;
             }
-        }
+        } */
 
         .glass-input:focus+.glass-label,
         .glass-input:not(:placeholder-shown)+.glass-label {
@@ -254,7 +256,7 @@
 
         /* glowing ball------------------------------------------------------- */
 
-        .ball {
+        /* .ball {
             width: 80vh;
             height: 80vh;
             background: linear-gradient(45deg, #ff4400, #ffd900);
@@ -265,8 +267,8 @@
             pointer-events: none;
             z-index: -111;
             opacity: .2;
-        }
-
+        } */
+/* 
         @keyframes rotate {
             0% {
                 filter: blur(15vh) hue-rotate(0deg);
@@ -285,7 +287,7 @@
                 border-radius: 50%;
             }
 
-        }
+        } */
 
 
         /* glowing ball------------------------------------------------------- */
@@ -301,12 +303,12 @@
             <!-- <h1 class="lc">MENAGEMENT</h1> -->
             <h1 class="ld"> SYSTEM</h1>
             <h2>AGRAWAL_CONSULTANTS</h2>
-            <p>Kindly remember that this job form portal is currently in its early trial phase. As a precaution, please
-                don't forget to also fill out the form offline. Thank you</p>
+            <!-- <p>Kindly remember that this job form portal is currently in its early trial phase. As a precaution, please
+                don't forget to also fill out the form offline. Thank you</p> -->
 
             <!-- glowing_ball------------------------------------------------------- -->
 
-            <div class="ball" id="ball"></div>
+            <!-- <div class="ball" id="ball"></div> -->
 
             <!-- glowing_ball------------------------------------------------------- -->
 
@@ -332,7 +334,7 @@
 
     <!-- search bar---------------------------------------------------------------------- -->
 
-    <div class="background-dot-container"></div>
+    <!-- <div class="background-dot-container"></div> -->
     <script>
         // Add background dots
         // const backgroundDotContainer = document.querySelector('.background-dot-container');
@@ -348,19 +350,19 @@
         // }
 
         // script for ball start from here----------------------------------------------------------------------
-        const ball = document.getElementById('ball');
+        // const ball = document.getElementById('ball');
 
-        document.addEventListener('mousemove', (event) => {
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
+        // document.addEventListener('mousemove', (event) => {
+        //     const mouseX = event.clientX;
+        //     const mouseY = event.clientY;
 
-            // Calculate the new position of the ball to follow the cursor
-            const ballX = mouseX - ball.clientWidth / 2;
-            const ballY = mouseY - ball.clientHeight / 2;
+        //     // Calculate the new position of the ball to follow the cursor
+        //     const ballX = mouseX - ball.clientWidth / 2;
+        //     const ballY = mouseY - ball.clientHeight / 2;
 
-            // Apply the new position to the ball
-            ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
-        });
+        //     // Apply the new position to the ball
+        //     ball.style.transform = `translate(${ballX}px, ${ballY}px)`;
+        // });
 
 
 
