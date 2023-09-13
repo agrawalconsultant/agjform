@@ -91,7 +91,7 @@
             height: 100vh;
         }
 
-        .background-dot {
+        /* .background-dot {
             border-radius: 5px;
             position: absolute;
             width: .7vh;
@@ -99,8 +99,7 @@
             background-color: rgb(23, 23, 23);
             animation: blinkAnimation 1s infinite alternate;
             z-index: -11;
-            /* Add blinking animation */
-        }
+        } */
 
 
         .glw_ball {
@@ -111,7 +110,7 @@
         }
 
         /* Define the blinking animation */
-        @keyframes blinkAnimation {
+        /* @keyframes blinkAnimation {
             from {
                 opacity: .5;
             }
@@ -119,7 +118,7 @@
             to {
                 opacity: 0.1;
             }
-        }
+        } */
 
         /* <!-- search bar---------------------------------------------------------------------- */
 
@@ -265,7 +264,7 @@
             transition: transform 8s ease-out;
             pointer-events: none;
             z-index: -111;
-            opacity: .5;
+            opacity: .2;
         }
 
         @keyframes rotate {
@@ -336,17 +335,17 @@
     <div class="background-dot-container"></div>
     <script>
         // Add background dots
-        const backgroundDotContainer = document.querySelector('.background-dot-container');
-        for (let y = -2.5; y < window.innerHeight; y += 40) {
-            for (let x = -2.5; x < window.innerWidth; x += 40) {
-                const dot = document.createElement('div');
-                dot.classList.add('background-dot');
-                dot.style.left = x + 'px';
-                dot.style.top = y + 'px';
-                dot.style.animationDelay = Math.random() * 2 + 's'; // Random delay for blinking animation
-                backgroundDotContainer.appendChild(dot);
-            }
-        }
+        // const backgroundDotContainer = document.querySelector('.background-dot-container');
+        // for (let y = -2.5; y < window.innerHeight; y += 40) {
+        //     for (let x = -2.5; x < window.innerWidth; x += 40) {
+        //         const dot = document.createElement('div');
+        //         dot.classList.add('background-dot');
+        //         dot.style.left = x + 'px';
+        //         dot.style.top = y + 'px';
+        //         dot.style.animationDelay = Math.random() * 2 + 's'; // Random delay for blinking animation
+        //         backgroundDotContainer.appendChild(dot);
+        //     }
+        // }
 
         // script for ball start from here----------------------------------------------------------------------
         const ball = document.getElementById('ball');
