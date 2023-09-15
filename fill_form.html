@@ -25,6 +25,13 @@
   </div>
 
 
+      
+  <div id="submissionError" class="fail_error" style="display: none;">
+    <h1>Form submission encountered an error. <br> Please try again later.</h1>
+  </div>
+  
+
+
 
   <div id="successMessage" class="modal">
     <div class="modal-content">
@@ -52,6 +59,8 @@
       <label for="receiptNo"></label>
       <input type="text" id="receiptNo" name="receiptNo" readonly>
     </div> -->
+
+
 
 
     <div class="sec_a">
@@ -91,6 +100,7 @@
     </div>
 
 
+
     <div id="modeError" class="error-message" style="display: none;">
       Please select a job receiving mode.
     </div>
@@ -117,10 +127,10 @@
     </div>
 
 
-    <div id="submissionError" class="error-message" style="display: none;">
-      Form submission encountered an error. Please try again later.
-    </div>
-    
+
+
+
+
 
     <div id="assignedByFieldContainer">
       <div class="dropdown" id="assignedByField">
@@ -292,7 +302,7 @@
   const workTypeDropdown = document.querySelector('#searchInput3');
   const payment = document.querySelector('#searchInput4');
 
-  const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgFQ/exec";
+  const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgF/exec";
 
 
   function updateAssignedByFieldVisibility() {
@@ -531,10 +541,8 @@ form.addEventListener("submit", async (e) => {
 
       // Display the form submission error in the HTML
       const submissionError = document.getElementById('submissionError');
-      submissionError.style.display = 'block';
+      submissionError.style.display = 'flex';
 
-      // You can also update the error message content dynamically if needed
-      submissionError.textContent = "Form submission encountered an error: " + error.message;
     }
   }
 });
@@ -583,10 +591,15 @@ form.addEventListener("submit", async (e) => {
   }
   document.body.addEventListener('click', hidepaymentError);
 
-  function hidesubmissionError() {
-    const submissionError = document.getElementById('submissionError');
-    submissionError.style.display = 'none';
-  }
-  document.body.addEventListener('click', hidesubmissionError);
+  // Function to hide the submission error with animation
+function hidesubmissionError() {
+  const submissionError = document.getElementById('submissionError');
+  submissionError.style.animation = 'slideOut 0.3s ease-in-out'; // Use the slideOut animation
+  setTimeout(() => {
+    submissionError.style.display = 'none'; // Hide the error message after the animation
+    submissionError.style.animation = ''; // Reset the animation
+  }, 300); // Wait for the animation duration (300 milliseconds) before hiding
+}
+document.body.addEventListener('click', hidesubmissionError);
 
 </script>
