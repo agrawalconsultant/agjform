@@ -15,6 +15,7 @@ body {
   background-color: #f3fdff;
   overflow: hidden;
   background-color: #24252A;
+  
 
 
 }
@@ -107,6 +108,7 @@ form {
 
 
 h3 {
+  /* display: none; */
   font-family: 'Work Sans', sans-serif;
   pointer-events: none;
   text-transform: uppercase;
@@ -311,7 +313,6 @@ input {
 }
 
 
-
 #workDescription {
   resize: none;
   border-radius: 10px;
@@ -324,8 +325,6 @@ input {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   height: 100%;
 }
-
-
 
 .sub {
 
@@ -485,22 +484,6 @@ button#okayButton:hover {
   color: red;
 }
 
-/* Style for the error message */
-.error-message {
-  display: none;
-  background-color: #f44336;
-  /* Red background color */
-  color: white;
-  /* White text color */
-  padding: 10px 15px;
-  border-radius: 5px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  z-index: 1000;
-}
 
 
 
@@ -563,3 +546,24 @@ button#okayButton:hover {
 #assignedByFieldContainer {
   display: none;
 }
+
+
+.error-message {
+  width: 100%;
+  display: none; /* Hide the error message by default */
+  background-color: #ffcccc; /* Background color for error message */
+  color: #ff0000; /* Text color for error message */
+  padding: 10px; /* Padding around the error message */
+  margin-top: 10px; /* Add some space above the error message */
+  border: 1px solid #ff0000; /* Border around the error message */
+  border-radius: 5px; /* Rounded corners for the error message */
+  font-weight: bold; /* Bold text for the error message */
+  text-align: center; /* Center-align text within the error message */
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+
+
+}
+
+
