@@ -5,17 +5,20 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* flex-direction: column; */
   /* background-color: #333; */
-  background-color: #f3fdff;
+  /* background-color: #f3fdff; */
   overflow: hidden;
   background-color: #24252A;
-  
+  font-family: 'Work Sans', sans-serif;
+
 
 
 }
@@ -68,11 +71,12 @@ body {
 
 .jobform span {
   transform: rotate(180deg);
-    -ms-transform: rotate(180deg);	 /*  for IE  */
+  -ms-transform: rotate(180deg);
+  /*  for IE  */
 
-    /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
-    -webkit-transform: rotate(180deg);
-    display: inline-block;
+  /* 	for browsers supporting webkit (such as chrome, firefox, safari etc.). */
+  -webkit-transform: rotate(180deg);
+  display: inline-block;
   transform: rotate(180deg);
   margin: 0px 5px;
   margin-left: 8px;
@@ -550,15 +554,24 @@ button#okayButton:hover {
 
 .error-message {
   width: 100%;
-  display: none; /* Hide the error message by default */
-  background-color: #ffcccc; /* Background color for error message */
-  color: #ff0000; /* Text color for error message */
-  padding: 10px; /* Padding around the error message */
-  margin-top: 10px; /* Add some space above the error message */
-  border: 1px solid #ff0000; /* Border around the error message */
-  border-radius: 5px; /* Rounded corners for the error message */
-  font-weight: bold; /* Bold text for the error message */
-  text-align: center; /* Center-align text within the error message */
+  display: none;
+  /* Hide the error message by default */
+  background-color: #ffcccc;
+  /* Background color for error message */
+  color: #ff0000;
+  /* Text color for error message */
+  padding: 10px;
+  /* Padding around the error message */
+  margin-top: 10px;
+  /* Add some space above the error message */
+  border: 1px solid #ff0000;
+  /* Border around the error message */
+  border-radius: 5px;
+  /* Rounded corners for the error message */
+  font-weight: bold;
+  /* Bold text for the error message */
+  text-align: center;
+  /* Center-align text within the error message */
   position: absolute;
   z-index: 1000;
   left: 0;
@@ -567,3 +580,63 @@ button#okayButton:hover {
 }
 
 
+.fail_error {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  /* Glass effect background */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  /* Glass effect blur */
+  /* pointer-events: none; */
+  /* pointer-events: visible; */
+
+}
+
+
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+
+.fail_error h1 {
+  animation: slideIn 1s ease;
+  text-transform: uppercase;
+  background-color: #ff26267e;
+  padding: 10%;
+  border-radius: 15px;
+  color: white;
+  font-size: 1.5rem;
+  pointer-events: none;
+  /* pointer-events: visible; */
+  text-align: center;
+  backdrop-filter: blur(5px);
+  /* Glass effect blur */
+  box-shadow: rgba(255, 0, 0, 0.882) 0px 0px 90px;
+  border: 1px solid rgb(255 255 255 / 63%);
+
+
+}
