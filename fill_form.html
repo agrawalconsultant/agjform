@@ -509,7 +509,7 @@ form.addEventListener("submit", async (e) => {
     const formData = new FormData(form);
     try {
       // Set a timeout for the form submission (e.g., 30 seconds)
-      const timeoutDuration = 30000; // 30 seconds
+      const timeoutDuration = 3000; // 30 seconds
       const response = await Promise.race([
         fetch(url, {
           method: "POST",
