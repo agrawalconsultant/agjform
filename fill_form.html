@@ -35,12 +35,17 @@
 
   <div id="successMessage" class="modal">
     <div class="modal-content">
-      <h2>Form Submission Successful</h2>
-      <p>Thank you for submitting the form. Here are the details you entered:</p>
-      <div id="submittedData">
-        <!-- Submitted data will be displayed here -->
+
+      <div class="modalbox">
+        <div class="modaltxt">
+          <h2>Form Submission Successful</h2>
+          <h4>Thank you for submitting the form. Here are the details you entered:</h4>
+        </div>
+        <div id="submittedData">
+          <!-- Submitted data will be displayed here -->
+        </div>
+        <button id="okayButton">Okay</button>
       </div>
-      <button id="okayButton">Okay</button>
     </div>
   </div>
 
@@ -205,7 +210,7 @@
     </div>
 
     <div class="sub">
-      <input type="submit" value="Submit">
+      <input type="submit" id="submitButton" value="Submit">
 
     </div>
   </form>
@@ -469,7 +474,8 @@ async function validateFormSubmission() {
       successModal.style.display = 'none';
 
       // Reset the form
-      resetForm();
+      location.reload();
+
     });
   }
 
@@ -484,20 +490,31 @@ async function validateFormSubmission() {
     return submittedData.join('');
   }
 
-  // Event listener for form submission
-  // Event listener for form submission
-form.addEventListener("submit", async (e) => {
+
+
+
+  // Function to disable the submit button
+function disableSubmitButton() {
+  const submitButton = document.getElementById('submitButton');
+  submitButton.disabled = true;
+}
+
+// Function to enable the submit button
+function enableSubmitButton() {
+  const submitButton = document.getElementById('submitButton');
+  submitButton.disabled = false;
+}
+
+
+
+  form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  disableSubmitButton(); // Disable the submit button when the form is submitted
   if (await validateFormSubmission()) {
     // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
     const mode3RadioButton = document.getElementById('mode3');
     const assignedByInput = document.querySelector('#searchInput2');
 
-    // if (mode3RadioButton.checked && !assignedByInput.value.trim()) {
-    //   // Show an error message and prevent form submission
-    //   alert("Assigned by is mandatory when BY TEAM is selected.");
-    //   return;
-    // }
     showProcessingIndicator(); // Show the processing indicator while submitting
 
     // Capture the current date and time
@@ -508,17 +525,10 @@ form.addEventListener("submit", async (e) => {
 
     const formData = new FormData(form);
     try {
-      // Set a timeout for the form submission (e.g., 30 seconds)
-      const timeoutDuration = 30000; // 30 seconds
-      const response = await Promise.race([
-        fetch(url, {
-          method: "POST",
-          body: formData,
-        }),
-        new Promise((_, reject) =>
-          setTimeout(() => reject(new Error('Form submission timed out')), timeoutDuration)
-        ),
-      ]);
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         const result = await response.text();
@@ -542,12 +552,15 @@ form.addEventListener("submit", async (e) => {
       // Display the form submission error in the HTML
       const submissionError = document.getElementById('submissionError');
       submissionError.style.display = 'flex';
-
     }
+    
+     // Enable the submit button after form submission is complete
+     enableSubmitButton();
+  } else {
+    // If validation fails, enable the submit button to allow for corrections
+    enableSubmitButton();
   }
 });
-
-
 
 
 
@@ -591,15 +604,20 @@ form.addEventListener("submit", async (e) => {
   }
   document.body.addEventListener('click', hidepaymentError);
 
-  // Function to hide the submission error with animation
-function hidesubmissionError() {
+// Function to hide the submission error with animation and refresh the page
+function hidesubmissionErrorAndRefresh() {
   const submissionError = document.getElementById('submissionError');
-  submissionError.style.animation = 'slideOut 0.3s ease-in-out'; // Use the slideOut animation
-  setTimeout(() => {
-    submissionError.style.display = 'none'; // Hide the error message after the animation
-    submissionError.style.animation = ''; // Reset the animation
-  }, 300); // Wait for the animation duration (300 milliseconds) before hiding
+  if (submissionError.style.display === 'flex') {
+    submissionError.style.animation = 'slideOut 0.3s ease-in-out'; // Use the slideOut animation
+    setTimeout(() => {
+      submissionError.style.display = 'none'; // Hide the error message after the animation
+      submissionError.style.animation = ''; // Reset the animation
+      location.reload(); // Refresh the page
+    }, 300); // Wait for the animation duration (300 milliseconds) before hiding and refreshing
+  }
 }
-document.body.addEventListener('click', hidesubmissionError);
+
+document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
+
 
 </script>
