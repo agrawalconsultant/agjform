@@ -10,6 +10,9 @@
 
 <body>
 
+  <div class="particles-container"></div>
+
+
 
 <!-- 
   <div class="backbtn">
@@ -50,9 +53,9 @@
   </div>
 
 
-  <!-- <video id="background-video" autoplay loop muted poster="bg.mp4">
+  <video id="background-video" autoplay loop muted poster="bg.mp4">
     <source src="bg.mp4" type="video/mp4">
-    </video> -->
+    </video>
   <!-- <h1 class="jobform"></h1> -->
   <div class="jobform">
     <button><a href="form.html"><span>➜</span>back</a></button>
@@ -618,6 +621,78 @@ function hidesubmissionErrorAndRefresh() {
 }
 
 document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
+
+
+
+
+
+
+
+
+
+
+
+const numParticles = 200;
+const particlesContainer = document.querySelector('.particles-container');
+const mouse = { x: 0, y: 0 };
+
+function createParticle() {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = Math.random() * 100 + 'vw';
+    particle.style.top = Math.random() * 100 + 'vh';
+    particle.style.animationDuration = (Math.random() * 3 + 1) + 's';
+    particle.style.animationDelay = (Math.random() * 2) + 's';
+    particlesContainer.appendChild(particle);
+
+    particle.addEventListener('animationiteration', () => {
+        particle.style.left = Math.random() * 100 + 'vw';
+        particle.style.top = -10 + 'vh';
+    });
+
+    return particle;
+}
+
+const particles = [];
+for (let i = 0; i < numParticles; i++) {
+    particles.push(createParticle());
+}
+
+document.addEventListener('mousemove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+function updateParticles() {
+    particles.forEach((particle) => {
+        const dx = mouse.x - particle.getBoundingClientRect().left;
+        const dy = mouse.y - particle.getBoundingClientRect().top;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        const maxDistance = 200; // Adjust this value to control the interaction range.
+
+        if (distance < maxDistance) {
+            const angle = Math.atan2(dy, dx);
+            const speed = 1 - distance / maxDistance; // Adjust this value to control the interaction strength.
+
+            const translateX = Math.cos(angle) * speed * 10;
+            const translateY = Math.sin(angle) * speed * 10;
+
+            particle.style.transform = `translate(${translateX}px, ${translateY}px) rotate(45deg)`;
+        } else {
+            particle.style.transform = 'none';
+        }
+    });
+
+    requestAnimationFrame(updateParticles);
+}
+
+updateParticles();
+
+
+
+
+
 
 
 </script>
