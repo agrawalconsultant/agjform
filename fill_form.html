@@ -57,9 +57,9 @@
     <source src="bg.mp4" type="video/mp4">
     </video>
   <!-- <h1 class="jobform"></h1> -->
-  <div class="jobform">
+  <!-- <div class="jobform">
     <button><a href="form.html"><span>➜</span>back</a></button>
-  </div>
+  </div> -->
   <form method="post" id="form">
 
     <!-- <div class="reciept_no">
@@ -67,8 +67,6 @@
       <label for="receiptNo"></label>
       <input type="text" id="receiptNo" name="receiptNo" readonly>
     </div> -->
-
-
 
 
     <div class="sec_a">
@@ -314,25 +312,28 @@
 
 
   function updateAssignedByFieldVisibility() {
-    const mode3RadioButton = document.getElementById('mode3');
-    const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
+  const mode3RadioButton = document.getElementById('mode3');
+  const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
 
-    if (mode3RadioButton.checked) {
-      assignedByFieldContainer.style.display = 'block';
-    } else {
-      assignedByFieldContainer.style.display = 'none';
-    }
+  if (mode3RadioButton.checked) {
+    assignedByFieldContainer.classList.add('show'); // Add the 'show' class
+  } else {
+    assignedByFieldContainer.classList.remove('show'); // Remove the 'show' class
   }
+}
 
-  // Call the updateAssignedByFieldVisibility function when the page loads
-  document.addEventListener("DOMContentLoaded", function () {
-    updateAssignedByFieldVisibility();
-  });
+// Call the updateAssignedByFieldVisibility function when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  updateAssignedByFieldVisibility();
+});
 
-  // Add a change event listener to the radio buttons to update visibility
-  jobReceivingModeInputs.forEach(function (input) {
-    input.addEventListener("change", updateAssignedByFieldVisibility);
-  });
+// Add a change event listener to the radio buttons to update visibility
+const jobReceivingModeInput = document.querySelectorAll('input[name="job_receiving_mode"]');
+jobReceivingModeInput.forEach(function (input) {
+  input.addEventListener("change", updateAssignedByFieldVisibility);
+});
+
+
  // Function to validate form submission
 async function validateFormSubmission() {
   const selectedJobUser = jobUserDropdown.value;
@@ -688,8 +689,6 @@ function updateParticles() {
 }
 
 updateParticles();
-
-
 
 
 </script>
