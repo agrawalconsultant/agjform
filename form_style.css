@@ -4,13 +4,13 @@
   box-sizing: border-box;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
 
 
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
 body {
-  /* display: flex; */
-  /* justify-content: center; */
+  display: flex;
+  justify-content: center;
   /* align-items: center; */
   /* flex-direction: column; */
   /* background-color: #333; */
@@ -19,8 +19,9 @@ body {
   background-color: #24252A;
   font-family: 'Work Sans', sans-serif;
   /* backdrop-filter: blur(10px); */
-
-
+  height: 100vh;
+  width: 100%;
+  align-items: center;
 
 }
 
@@ -84,7 +85,8 @@ body {
 }
 
 form {
-  margin: 0% 10%;
+  /* margin: 0% 10%; */
+  width: 90%;
 }
 
 .reciept_no {
@@ -283,7 +285,7 @@ input:hover{
 .dropdown-content {
 
   position: absolute;
-  display: none;
+  /* display: none; */
   /* opacity: 0; */
   /* display: flex; */
   margin-top: 10px;
@@ -295,13 +297,15 @@ input:hover{
   z-index: 10;
   /* overflow-y: auto; */
   /* background-color: #353535f5; */
-  transition: all .5s;
   /* background-color: rgba(162, 162, 162, 10%); */
   background-color: #1f1f1f8a;
   text-align: center;
   padding: 10px;
   backdrop-filter: blur(50px);
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.168);
+  transform: scale(0); 
+  transition: all .5s, transform .3s ease; 
+
 
 }
 
@@ -329,10 +333,11 @@ input:hover{
 
 }
 
+ 
+.dropdown-content.show {
+  transform: scale(1); 
+  /* display: block; */
 
-.show {
-
-  display: block;
 }
 
 
@@ -666,14 +671,22 @@ button#okayButton:hover {
 }
 
 
-
-
-
-
-
-
 #assignedByFieldContainer {
-  display: none;
+  position: relative;
+  max-height: 0;
+  opacity: 0;
+  /* overflow: hidden; */
+  transition: all 0.4s ease;
+  /* transform: scale(0);  */
+
+}
+
+#assignedByFieldContainer.show {
+  position: static;
+  max-height: 200px; 
+  opacity: 1;
+  /* transform: scale(1);  */
+
 }
 
 
