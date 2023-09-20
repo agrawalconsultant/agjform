@@ -18,7 +18,7 @@ body {
   overflow: hidden;
   background-color: #24252A;
   font-family: 'Work Sans', sans-serif;
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
 
 
 
@@ -203,7 +203,7 @@ h3 {
 
 .button-group input[type="radio"]:checked+label {
 
-  background-color: #007bff;
+  /* background-color: #007bff; */
   color: #fff;
   transition: ALL 0.5S ease;
   background-color: #FD746C;
@@ -214,12 +214,13 @@ h3 {
 
 
 .button-group input[type="radio"]:hover+label {
-  background-color: #007bff;
-  background-color: #FD746C;
-
-
-  color: #fff;
+  /* background-color: #007bff; */
+  /* background-color: #FD746C; */
+  /* color: #fff; */
   transition: ALL 0.5S;
+  transform: scale(1.02); /* You can adjust the scale factor as needed */
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
 
@@ -265,11 +266,18 @@ input {
   /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
   background-color: rgba(162, 162, 162, 10%);
   color: white;
-  border: 1.5px solid #ffffff;
+  border: 1px solid #ffffff;
   box-shadow: rgba(11, 12, 12, 0.407) 0px 8px 24px;
-
+  transition: transform 0.3s ease;
+  
 }
 
+
+input:hover{
+  transform: scale(1.02); /* You can adjust the scale factor as needed */
+  transition: transform 0.3s ease;
+  /* cursor: pointer; */
+}
 
 
 .dropdown-content {
@@ -283,41 +291,42 @@ input {
   /* width: 23.6em; */
   /* flex-direction: column; */
   /* height: 10em; */
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 5px 20px 3px rgba(0, 0, 0, 0.6);
   z-index: 10;
   /* overflow-y: auto; */
-  background-color: #ffffff;
+  /* background-color: #353535f5; */
   transition: all .5s;
+  /* background-color: rgba(162, 162, 162, 10%); */
+  background-color: #1f1f1f8a;
   text-align: center;
   padding: 10px;
+  backdrop-filter: blur(50px);
+  border: 1px solid white;
 
 }
 
 
 .dropdown-content a {
-  /* display: flex; */
   display: inline-block;
-  /* margin: 10px; */
   text-decoration: none;
-  color: #333;
-  /* border-radius: 10px; */
-  padding: 15px 10px;
-  font-size: 1rem;
-  /* text-align: center; */
+  color: rgb(250, 250, 250);
+  padding: 10px 4px;
+  font-size: 0.8rem;
   width: 11em;
-  /* height: 3em; */
-  /* background: rgb(224, 224, 224); */
-  background-color: #f3f3f3;
-
-  margin: 0.2em 0.2em;
-  /* margin-left: 1.6em; */
-  text-align: center;
-  transition: all .3s;
-  /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
+  background-color: rgba(147, 147, 147, 0.3);
+  margin: 5px 2px;
+  transition: all 0.3s ease 0s;
+  box-shadow: rgba(6, 6, 6, 0.27) 0px 2px 8px 0px;
+  border-radius: 10px;
 }
 
 .dropdown-content a:hover {
-  background-color: #00c3ff;
+  /* background-color: #00c3ff; */
+  box-shadow: rgba(2, 245, 245, 0.952) 0px 2px 8px 0px;
+  transform: scale(1.02); /* You can adjust the scale factor as needed */
+  /* transition: transform 0.1s ease; */
+  cursor: pointer;
+
 }
 
 
@@ -350,6 +359,13 @@ input {
   z-index: 1 ;
 }
 
+#workDescription:hover{
+  transform: scale(1.01); /* You can adjust the scale factor as needed */
+  transition: transform 0.3s ease;
+  /* cursor: pointer; */
+}
+
+
 .sub {
 
   margin: 30px 0px;
@@ -370,7 +386,7 @@ input {
 
 
 .sub input:hover {
-  background-color: #FF9068;
+  /* background-color: #FF9068; */
 }
 
 .d_fee {
@@ -481,7 +497,7 @@ input {
   justify-content: center;
   height: 100vh;
   /* width: 100%; */
-  padding-bottom: 100px;
+  padding-bottom: 60px;
 }
 
 
@@ -496,7 +512,7 @@ input {
 
 .modaltxt h2{
   text-transform: uppercase;
-  font-size: 1.8rem;
+  font-size: 2.2rem;
 }
 
 h4{
@@ -510,11 +526,13 @@ h4{
   justify-content: space-between;
   flex-direction: column;
   margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
   /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
 }
 
 .modal-content p {
-  width: 30em;
+  width: 34em;
   /* display: grid; */
   display: flex;
   justify-content: space-between;
@@ -524,20 +542,31 @@ h4{
   align-content: stretch;
   /* align-items: end; */
   /* justify-items: stretch; */
-  /* background-color: #00000061; */
+  background-color: #ffffff24;
   border-radius: 5px;
-  margin-top: 6px;
-  margin: 0px 0px 7px 0px;
+  /* margin-top: 50px; */
+  margin: 0px 30px 10px 30px;
   padding: 10px 15px;
   color: whitesmoke;
-  /* box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px; */
-  border: 0.1px solid #ffffff54;
+  box-shadow: rgb(49 49 49 / 87%) 0px 10px 36px 0px, rgb(0 0 0 / 89%) 0px 0px 0px 1px;
+  border: 1px solid #ffffff;
+  font-size: 1.1rem;
 }
 
+
+
+#submittedData p:hover {
+  transform: scale(1.02); /* You can adjust the scale factor as needed */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+
+
 button#okayButton {
-  width: 20em;
+  width: 25em;
   display: block;
-  margin: 10px auto;
+  margin: 2px auto;
   padding: 10px 20px;
   background-color: indianred;
   color: white;
@@ -555,9 +584,10 @@ button#okayButton {
 }
 
 button#okayButton:hover {
-  /* background-color: #0056b3; */
-  border: 1.5px solid;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  transform: scale(1.02); /* You can adjust the scale factor as needed */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
 }
 
 .close {
@@ -769,10 +799,5 @@ button#okayButton:hover {
   border-radius: 50%;
   z-index: -10;
 }
-
-
-
-
-
 
 
