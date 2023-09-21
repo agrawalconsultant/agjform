@@ -13,8 +13,7 @@
   <!-- <div class="particles-container"></div> -->
 
 
-
-<!-- 
+  <!-- 
   <div class="backbtn">
     <button><a href="form.html">back</a></button>
   </div> -->
@@ -28,12 +27,9 @@
   </div>
 
 
-      
   <div id="submissionError" class="fail_error" style="display: none;">
     <h1>Form submission encountered an error. <br> Please try again later.</h1>
   </div>
-  
-
 
 
   <div id="successMessage" class="modal">
@@ -41,9 +37,14 @@
 
       <div class="modalbox">
         <div class="modaltxt">
-          <h2>Form Submission Successful</h2>
+          <!-- <h2>Form Submission Successful</h2> -->
           <!-- <h4>Thank you for submitting the form. Here are the details you entered:</h4> -->
         </div>
+        <div class="receipNo">
+          <table>
+          </table>
+        </div>
+
         <div id="submittedData">
           <!-- Submitted data will be displayed here -->
         </div>
@@ -55,7 +56,7 @@
 
   <video id="background-video" autoplay loop muted poster="bg.mp4">
     <source src="bg.mp4" type="video/mp4">
-    </video>
+  </video>
   <!-- <h1 class="jobform"></h1> -->
   <!-- <div class="jobform">
     <button><a href="form.html"><span>➜</span>back</a></button>
@@ -218,6 +219,41 @@
 </body>
 
 <script>
+
+// Wrap your fetch code in a function to be called when needed
+function fetchDataWhenVisible() {
+  // Check if the successMessage element is visible
+  const successMessage = document.getElementById('successMessage');
+  if (successMessage.style.display === 'block') {
+    // Fetch data only when the successMessage is visible
+    fetch('https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec')
+      .then(res => res.json())
+      .then(data => {
+        let tr = data.content.reduce((prev, cur) => {
+          let td = cur.map(e => `<td>${e}</td>`)
+          return prev + `<tr>${td.join("")}</tr>`
+        }, "\r")
+        document.querySelector("table").innerHTML = tr;
+      });
+  }
+}
+
+// Call the fetchDataWhenVisible function when the page loads
+document.addEventListener("DOMContentLoaded", function () {
+  fetchDataWhenVisible();
+});
+
+// Add an event listener to re-fetch data when the successMessage element becomes visible
+const successMessage = document.getElementById('successMessage');
+successMessage.addEventListener('transitionend', function () {
+  // Call fetchDataWhenVisible after the transition animation completes
+  fetchDataWhenVisible();
+});
+
+
+
+
+
   document.addEventListener("DOMContentLoaded", function () {
     // Get references to all three search inputs and dropdown contents
     const searchInput1 = document.getElementById("searchInput1");
@@ -308,130 +344,129 @@
   const workTypeDropdown = document.querySelector('#searchInput3');
   const payment = document.querySelector('#searchInput4');
 
-  const url = "https://script.google.com/macros/s/AKfycbyoOK6jttxt_RH4K5Sy0FArblaywYeMvNpYUMKiuW050hawzFoqZyCjaw745fvnnFSgFQ/exec";
-
+  const url = "https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec";
 
   function updateAssignedByFieldVisibility() {
-  const mode3RadioButton = document.getElementById('mode3');
-  const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
+    const mode3RadioButton = document.getElementById('mode3');
+    const assignedByFieldContainer = document.getElementById('assignedByFieldContainer');
 
-  if (mode3RadioButton.checked) {
-    assignedByFieldContainer.classList.add('show'); // Add the 'show' class
-  } else {
-    assignedByFieldContainer.classList.remove('show'); // Remove the 'show' class
-  }
-}
-
-// Call the updateAssignedByFieldVisibility function when the page loads
-document.addEventListener("DOMContentLoaded", function () {
-  updateAssignedByFieldVisibility();
-});
-
-// Add a change event listener to the radio buttons to update visibility
-const jobReceivingModeInput = document.querySelectorAll('input[name="job_receiving_mode"]');
-jobReceivingModeInput.forEach(function (input) {
-  input.addEventListener("change", updateAssignedByFieldVisibility);
-});
-
-
- // Function to validate form submission
-async function validateFormSubmission() {
-  const selectedJobUser = jobUserDropdown.value;
-  const selectedAssignedBy = assignedByDropdown.value;
-  const selectedWorkType = workTypeDropdown.value;
-
-  // Check if one of the radio buttons is selected
-  const mode1RadioButton = document.getElementById('mode1');
-  const mode2RadioButton = document.getElementById('mode2');
-  const mode3RadioButton = document.getElementById('mode3');
-  const isModeSelected = mode1RadioButton.checked || mode2RadioButton.checked || mode3RadioButton.checked;
-
-  if (!isModeSelected) {
-    // Display the error message for mode selection
-    const modeError = document.getElementById('modeError');
-    modeError.style.display = 'block';
-    modeError.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the error message for mode selection if a mode is selected
-    const modeError = document.getElementById('modeError');
-    modeError.style.display = 'none';
+    if (mode3RadioButton.checked) {
+      assignedByFieldContainer.classList.add('show'); // Add the 'show' class
+    } else {
+      assignedByFieldContainer.classList.remove('show'); // Remove the 'show' class
+    }
   }
 
-  // Check if Job User and Assigned By are the same
-  if (selectedJobUser === selectedAssignedBy) {
-    // Display the error message for both being the same
-    const userAssignedError = document.getElementById('userAssignedError');
-    userAssignedError.style.display = 'block';
-    userAssignedError.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the error message for both being the same if they are not the same
-    const userAssignedError = document.getElementById('userAssignedError');
-    userAssignedError.style.display = 'none';
+  // Call the updateAssignedByFieldVisibility function when the page loads
+  document.addEventListener("DOMContentLoaded", function () {
+    updateAssignedByFieldVisibility();
+  });
+
+  // Add a change event listener to the radio buttons to update visibility
+  const jobReceivingModeInput = document.querySelectorAll('input[name="job_receiving_mode"]');
+  jobReceivingModeInput.forEach(function (input) {
+    input.addEventListener("change", updateAssignedByFieldVisibility);
+  });
+
+
+  // Function to validate form submission
+  async function validateFormSubmission() {
+    const selectedJobUser = jobUserDropdown.value;
+    const selectedAssignedBy = assignedByDropdown.value;
+    const selectedWorkType = workTypeDropdown.value;
+
+    // Check if one of the radio buttons is selected
+    const mode1RadioButton = document.getElementById('mode1');
+    const mode2RadioButton = document.getElementById('mode2');
+    const mode3RadioButton = document.getElementById('mode3');
+    const isModeSelected = mode1RadioButton.checked || mode2RadioButton.checked || mode3RadioButton.checked;
+
+    if (!isModeSelected) {
+      // Display the error message for mode selection
+      const modeError = document.getElementById('modeError');
+      modeError.style.display = 'block';
+      modeError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for mode selection if a mode is selected
+      const modeError = document.getElementById('modeError');
+      modeError.style.display = 'none';
+    }
+
+    // Check if Job User and Assigned By are the same
+    if (selectedJobUser === selectedAssignedBy) {
+      // Display the error message for both being the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'block';
+      userAssignedError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for both being the same if they are not the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'none';
+    }
+
+    // Check if "BY TEAM" is selected and the "Assigned by" field is empty
+    if (mode3RadioButton.checked && selectedAssignedBy.trim() === '') {
+      // Show the alert message for team assignment
+      const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
+      teamAssignmentAlert.style.display = 'block';
+      teamAssignmentAlert.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the alert message for team assignment if conditions are met
+      const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
+      teamAssignmentAlert.style.display = 'none';
+    }
+
+    // Check if "BY TEAM" is selected and the value in "Assigned by" field is not in the dropdown list
+    if (mode3RadioButton.checked && !isValueInDropdown(selectedAssignedBy, document.querySelectorAll(".dropdown-content")[1])) {
+      // Show the error message for invalid assigned by value
+      const assignedByError = document.getElementById('assignedByError');
+      assignedByError.style.display = 'block';
+      assignedByError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for invalid assigned by value if it is valid
+      const assignedByError = document.getElementById('assignedByError');
+      assignedByError.style.display = 'none';
+    }
+
+    if (
+      !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
+      !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
+    ) {
+      // Display the error message for both being the same
+      const droperror = document.getElementById('droperror');
+      droperror.style.display = 'block';
+      droperror.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for both being the same if they are not the same
+      const userAssignedError = document.getElementById('userAssignedError');
+      userAssignedError.style.display = 'none';
+    }
+
+    const searchInput4 = document.getElementById('searchInput4');
+    const paymentDropdownContent = document.querySelectorAll(".dropdown-content")[3];
+
+    const selectedPayment = searchInput4.value.trim();
+    const isPaymentInDropdown = isValueInDropdown(selectedPayment, paymentDropdownContent);
+
+    if (!isPaymentInDropdown) {
+      // Display an error message for invalid payment
+      const paymentError = document.getElementById('paymentError');
+      paymentError.style.display = 'block';
+      paymentError.scrollIntoView({ behavior: "smooth" });
+      return false;
+    } else {
+      // Hide the error message for invalid payment if it is valid
+      const paymentError = document.getElementById('paymentError');
+      paymentError.style.display = 'none';
+    }
+
+    return true;
   }
-
-  // Check if "BY TEAM" is selected and the "Assigned by" field is empty
-  if (mode3RadioButton.checked && selectedAssignedBy.trim() === '') {
-    // Show the alert message for team assignment
-    const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
-    teamAssignmentAlert.style.display = 'block';
-    teamAssignmentAlert.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the alert message for team assignment if conditions are met
-    const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
-    teamAssignmentAlert.style.display = 'none';
-  }
-
-  // Check if "BY TEAM" is selected and the value in "Assigned by" field is not in the dropdown list
-  if (mode3RadioButton.checked && !isValueInDropdown(selectedAssignedBy, document.querySelectorAll(".dropdown-content")[1])) {
-    // Show the error message for invalid assigned by value
-    const assignedByError = document.getElementById('assignedByError');
-    assignedByError.style.display = 'block';
-    assignedByError.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the error message for invalid assigned by value if it is valid
-    const assignedByError = document.getElementById('assignedByError');
-    assignedByError.style.display = 'none';
-  }
-
-  if (
-    !isValueInDropdown(selectedJobUser, document.querySelectorAll(".dropdown-content")[0]) ||
-    !isValueInDropdown(selectedWorkType, document.querySelectorAll(".dropdown-content")[2])
-  ) {
-    // Display the error message for both being the same
-    const droperror = document.getElementById('droperror');
-    droperror.style.display = 'block';
-    droperror.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the error message for both being the same if they are not the same
-    const userAssignedError = document.getElementById('userAssignedError');
-    userAssignedError.style.display = 'none';
-  }
-
-  const searchInput4 = document.getElementById('searchInput4');
-  const paymentDropdownContent = document.querySelectorAll(".dropdown-content")[3];
-
-  const selectedPayment = searchInput4.value.trim();
-  const isPaymentInDropdown = isValueInDropdown(selectedPayment, paymentDropdownContent);
-
-  if (!isPaymentInDropdown) {
-    // Display an error message for invalid payment
-    const paymentError = document.getElementById('paymentError');
-    paymentError.style.display = 'block';
-    paymentError.scrollIntoView({ behavior: "smooth" });
-    return false;
-  } else {
-    // Hide the error message for invalid payment if it is valid
-    const paymentError = document.getElementById('paymentError');
-    paymentError.style.display = 'none';
-  }
-
-  return true;
-}
 
   // Function to validate if a value is in the dropdown list
   function isValueInDropdown(value, dropdownContent) {
@@ -498,73 +533,73 @@ async function validateFormSubmission() {
 
 
   // Function to disable the submit button
-function disableSubmitButton() {
-  const submitButton = document.getElementById('submitButton');
-  submitButton.disabled = true;
-}
+  function disableSubmitButton() {
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = true;
+  }
 
-// Function to enable the submit button
-function enableSubmitButton() {
-  const submitButton = document.getElementById('submitButton');
-  submitButton.disabled = false;
-}
+  // Function to enable the submit button
+  function enableSubmitButton() {
+    const submitButton = document.getElementById('submitButton');
+    submitButton.disabled = false;
+  }
 
 
 
   form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  disableSubmitButton(); // Disable the submit button when the form is submitted
-  if (await validateFormSubmission()) {
-    // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
-    const mode3RadioButton = document.getElementById('mode3');
-    const assignedByInput = document.querySelector('#searchInput2');
+    e.preventDefault();
+    disableSubmitButton(); // Disable the submit button when the form is submitted
+    if (await validateFormSubmission()) {
+      // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
+      const mode3RadioButton = document.getElementById('mode3');
+      const assignedByInput = document.querySelector('#searchInput2');
 
-    showProcessingIndicator(); // Show the processing indicator while submitting
+      showProcessingIndicator(); // Show the processing indicator while submitting
 
-    // Capture the current date and time
-    const currentDateTime = new Date().toLocaleString();
+      // Capture the current date and time
+      const currentDateTime = new Date().toLocaleString();
 
-    // Set the current date and time as the value of the "time" field
-    document.getElementById('time').value = currentDateTime;
+      // Set the current date and time as the value of the "time" field
+      document.getElementById('time').value = currentDateTime;
 
-    const formData = new FormData(form);
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
 
-      if (response.ok) {
-        const result = await response.text();
-        console.log(result);
+        if (response.ok) {
+          const result = await response.text();
+          console.log(result);
 
-        // Hide the processing indicator once the submission is complete
+          // Hide the processing indicator once the submission is complete
+          hideProcessingIndicator();
+
+          // Display success message with submitted data
+          displaySuccessModal(getSubmittedFormData(formData));
+        } else {
+          // Handle HTTP errors (e.g., 404, 500, etc.)
+          throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+
+        // Hide the processing indicator in case of an error
         hideProcessingIndicator();
 
-        // Display success message with submitted data
-        displaySuccessModal(getSubmittedFormData(formData));
-      } else {
-        // Handle HTTP errors (e.g., 404, 500, etc.)
-        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        // Display the form submission error in the HTML
+        const submissionError = document.getElementById('submissionError');
+        submissionError.style.display = 'flex';
       }
-    } catch (error) {
-      console.error("Error:", error);
 
-      // Hide the processing indicator in case of an error
-      hideProcessingIndicator();
-
-      // Display the form submission error in the HTML
-      const submissionError = document.getElementById('submissionError');
-      submissionError.style.display = 'flex';
+      // Enable the submit button after form submission is complete
+      enableSubmitButton();
+    } else {
+      // If validation fails, enable the submit button to allow for corrections
+      enableSubmitButton();
     }
-    
-     // Enable the submit button after form submission is complete
-     enableSubmitButton();
-  } else {
-    // If validation fails, enable the submit button to allow for corrections
-    enableSubmitButton();
-  }
-});
+  });
 
 
 
@@ -596,7 +631,7 @@ function enableSubmitButton() {
   }
   document.body.addEventListener('click', hideteamAssignmentAlert);
 
-  function hideassignedByError() {  
+  function hideassignedByError() {
     const assignedByError = document.getElementById('assignedByError');
     assignedByError.style.display = 'none';
   }
@@ -608,21 +643,20 @@ function enableSubmitButton() {
   }
   document.body.addEventListener('click', hidepaymentError);
 
-// Function to hide the submission error with animation and refresh the page
-function hidesubmissionErrorAndRefresh() {
-  const submissionError = document.getElementById('submissionError');
-  if (submissionError.style.display === 'flex') {
-    submissionError.style.animation = 'slideOut 0.3s ease-in-out'; // Use the slideOut animation
-    setTimeout(() => {
-      submissionError.style.display = 'none'; // Hide the error message after the animation
-      submissionError.style.animation = ''; // Reset the animation
-      location.reload(); // Refresh the page
-    }, 300); // Wait for the animation duration (300 milliseconds) before hiding and refreshing
+  // Function to hide the submission error with animation and refresh the page
+  function hidesubmissionErrorAndRefresh() {
+    const submissionError = document.getElementById('submissionError');
+    if (submissionError.style.display === 'flex') {
+      submissionError.style.animation = 'slideOut 0.3s ease-in-out'; // Use the slideOut animation
+      setTimeout(() => {
+        submissionError.style.display = 'none'; // Hide the error message after the animation
+        submissionError.style.animation = ''; // Reset the animation
+        location.reload(); // Refresh the page
+      }, 300); // Wait for the animation duration (300 milliseconds) before hiding and refreshing
+    }
   }
-}
 
-document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
-
+  document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
 
 
 
@@ -633,11 +667,12 @@ document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
 
 
 
-const numParticles = 200;
-const particlesContainer = document.querySelector('.particles-container');
-const mouse = { x: 0, y: 0 };
 
-function createParticle() {
+  const numParticles = 200;
+  const particlesContainer = document.querySelector('.particles-container');
+  const mouse = { x: 0, y: 0 };
+
+  function createParticle() {
     const particle = document.createElement('div');
     particle.classList.add('particle');
     particle.style.left = Math.random() * 100 + 'vw';
@@ -647,48 +682,52 @@ function createParticle() {
     particlesContainer.appendChild(particle);
 
     particle.addEventListener('animationiteration', () => {
-        particle.style.left = Math.random() * 100 + 'vw';
-        particle.style.top = -10 + 'vh';
+      particle.style.left = Math.random() * 100 + 'vw';
+      particle.style.top = -10 + 'vh';
     });
 
     return particle;
-}
+  }
 
-const particles = [];
-for (let i = 0; i < numParticles; i++) {
+  const particles = [];
+  for (let i = 0; i < numParticles; i++) {
     particles.push(createParticle());
-}
+  }
 
-document.addEventListener('mousemove', (e) => {
+  document.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
-});
+  });
 
-function updateParticles() {
+  function updateParticles() {
     particles.forEach((particle) => {
-        const dx = mouse.x - particle.getBoundingClientRect().left;
-        const dy = mouse.y - particle.getBoundingClientRect().top;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      const dx = mouse.x - particle.getBoundingClientRect().left;
+      const dy = mouse.y - particle.getBoundingClientRect().top;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-        const maxDistance = 200; // Adjust this value to control the interaction range.
+      const maxDistance = 200; // Adjust this value to control the interaction range.
 
-        if (distance < maxDistance) {
-            const angle = Math.atan2(dy, dx);
-            const speed = 1 - distance / maxDistance; // Adjust this value to control the interaction strength.
+      if (distance < maxDistance) {
+        const angle = Math.atan2(dy, dx);
+        const speed = 1 - distance / maxDistance; // Adjust this value to control the interaction strength.
 
-            const translateX = Math.cos(angle) * speed * 10;
-            const translateY = Math.sin(angle) * speed * 10;
+        const translateX = Math.cos(angle) * speed * 10;
+        const translateY = Math.sin(angle) * speed * 10;
 
-            particle.style.transform = `translate(${translateX}px, ${translateY}px) rotate(45deg)`;
-        } else {
-            particle.style.transform = 'none';
-        }
+        particle.style.transform = `translate(${translateX}px, ${translateY}px) rotate(45deg)`;
+      } else {
+        particle.style.transform = 'none';
+      }
     });
 
     requestAnimationFrame(updateParticles);
-}
+  }
 
-updateParticles();
+  updateParticles();
+
+
+
+
 
 
 </script>
