@@ -89,29 +89,7 @@ form {
   width: 90%;
 }
 
-.reciept_no {
-  /* display: flex; */
-  flex-direction: column;
-  width: 15em;
-  margin-bottom: 35px;
-}
 
-.reciept_no h3 {
-  font-size: 1rem;
-  font-family: system-ui;
-  margin: 6px 0px;
-  pointer-events: none;
-  text-transform: uppercase;
-}
-
-.reciept_no input {
-  height: 32px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  padding: 20px;
-  outline: none;
-  border: none;
-}
 
 
 h3 {
@@ -134,9 +112,6 @@ h3 {
 .mode h3 {
   margin-left: 15px;
 }
-
-
-
 
 
 
@@ -305,8 +280,6 @@ input:hover{
   border: 1px solid rgba(255, 255, 255, 0.168);
   transform: scale(0); 
   transition: all .5s, transform .3s ease; 
-
-
 }
 
 
@@ -390,10 +363,6 @@ input:hover{
 }
 
 
-.sub input:hover {
-  /* background-color: #FF9068; */
-}
-
 .d_fee {
   display: flex;
   flex-direction: column;
@@ -402,18 +371,6 @@ input:hover{
   position: relative;
 }
 
-
-
-/* 
-.d_fee input{
-    position: absolute;
-    position: absolute;
-    width: 21em;
-    bottom: 5px;
-    padding: 5px 10px;
-    right: 0;
-    border: 1px solid black;
-} */
 
 
 .dropdownwt a {
@@ -607,10 +564,6 @@ button#okayButton:hover {
 .close:hover {
   color: red;
 }
-
-
-
-
 
 
 
@@ -814,3 +767,17 @@ button#okayButton:hover {
 }
 
 
+.receipNo{
+width: 37.5em;
+}
+
+td{
+  color: white;
+  font-family: unset;
+  background-color: rgba(147, 207, 232, 0.25);
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 197, 250, 0.22) 0px 0px 18px, rgba(0, 0, 0, 0.22) 0px 1px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+ 
+}
