@@ -135,10 +135,6 @@
 
 
 
-
-
-
-
     <div id="assignedByFieldContainer">
       <div class="dropdown" id="assignedByField">
         <h3>assigned by</h3>
@@ -219,39 +215,6 @@
 </body>
 
 <script>
-
-// Wrap your fetch code in a function to be called when needed
-function fetchDataWhenVisible() {
-  // Check if the successMessage element is visible
-  const successMessage = document.getElementById('successMessage');
-  if (successMessage.style.display === 'block') {
-    // Fetch data only when the successMessage is visible
-    fetch('https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec')
-      .then(res => res.json())
-      .then(data => {
-        let tr = data.content.reduce((prev, cur) => {
-          let td = cur.map(e => `<td>${e}</td>`)
-          return prev + `<tr>${td.join("")}</tr>`
-        }, "\r")
-        document.querySelector("table").innerHTML = tr;
-      });
-  }
-}
-
-// Call the fetchDataWhenVisible function when the page loads
-document.addEventListener("DOMContentLoaded", function () {
-  fetchDataWhenVisible();
-});
-
-// Add an event listener to re-fetch data when the successMessage element becomes visible
-const successMessage = document.getElementById('successMessage');
-successMessage.addEventListener('transitionend', function () {
-  // Call fetchDataWhenVisible after the transition animation completes
-  fetchDataWhenVisible();
-});
-
-
-
 
 
   document.addEventListener("DOMContentLoaded", function () {
@@ -505,8 +468,10 @@ successMessage.addEventListener('transitionend', function () {
     // Populate the submitted data container with the form data
     submittedDataContainer.innerHTML = formData;
 
-    // Display the success modal
+    setTimeout(function () {
     successModal.style.display = 'block';
+  }, 3000); // 3000 milliseconds (3 seconds)
+
 
     const okayButton = document.getElementById('okayButton');
     okayButton.addEventListener('click', function () {
@@ -514,7 +479,6 @@ successMessage.addEventListener('transitionend', function () {
 
       // Reset the form
       location.reload();
-
     });
   }
 
@@ -531,7 +495,6 @@ successMessage.addEventListener('transitionend', function () {
 
 
 
-
   // Function to disable the submit button
   function disableSubmitButton() {
     const submitButton = document.getElementById('submitButton');
@@ -545,62 +508,79 @@ successMessage.addEventListener('transitionend', function () {
   }
 
 
-
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    disableSubmitButton(); // Disable the submit button when the form is submitted
-    if (await validateFormSubmission()) {
-      // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
-      const mode3RadioButton = document.getElementById('mode3');
-      const assignedByInput = document.querySelector('#searchInput2');
+  e.preventDefault();
+  disableSubmitButton(); // Disable the submit button when the form is submitted
+  if (await validateFormSubmission()) {
+    // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
+    const mode3RadioButton = document.getElementById('mode3');
+    const assignedByInput = document.querySelector('#searchInput2');
 
-      showProcessingIndicator(); // Show the processing indicator while submitting
+    showProcessingIndicator(); // Show the processing indicator while submitting
 
-      // Capture the current date and time
-      const currentDateTime = new Date().toLocaleString();
+    // Capture the current date and time
+    const currentDateTime = new Date().toLocaleString();
 
-      // Set the current date and time as the value of the "time" field
-      document.getElementById('time').value = currentDateTime;
+    // Set the current date and time as the value of the "time" field
+    document.getElementById('time').value = currentDateTime;
 
-      const formData = new FormData(form);
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          body: formData,
-        });
+    const formData = new FormData(form);
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
 
-        if (response.ok) {
-          const result = await response.text();
-          console.log(result);
+      if (response.ok) {
+        const result = await response.text();
+        console.log(result);
+   fetch('https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec')
+  .then(res => res.json())
+  .then(data => {
+    let tr = data.content.reduce((prev, cur) => {
+      let td = cur.map(e => `<td>${e}</td>`)
+      return prev + `<tr>${td.join("")}</tr>`
+    }, "\r");
+    document.querySelector("table").innerHTML = tr;
 
-          // Hide the processing indicator once the submission is complete
-          hideProcessingIndicator();
-
-          // Display success message with submitted data
-          displaySuccessModal(getSubmittedFormData(formData));
-        } else {
-          // Handle HTTP errors (e.g., 404, 500, etc.)
-          throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-
-        // Hide the processing indicator in case of an error
-        hideProcessingIndicator();
-
-        // Display the form submission error in the HTML
-        const submissionError = document.getElementById('submissionError');
-        submissionError.style.display = 'flex';
+    // Check if the <tbody> element is present in the table
+    let tbodyElement = document.querySelector("table tbody");
+    if (tbodyElement) {
+      // Hide the processing indicator
+      let processingIndicator = document.getElementById("processing-indicator");
+      if (processingIndicator) {
+        processingIndicator.style.display = "none";
       }
-
-      // Enable the submit button after form submission is complete
-      enableSubmitButton();
-    } else {
-      // If validation fails, enable the submit button to allow for corrections
-      enableSubmitButton();
     }
   });
+        // Display success message with submitted data
+        displaySuccessModal(getSubmittedFormData(formData));
 
+        // Hide the processing indicator after 3 seconds (3000 milliseconds)
+        setTimeout(() => {
+          hideProcessingIndicator();
+        }, 3000);
+      } else {
+        // Handle HTTP errors (e.g., 404, 500, etc.)
+        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+
+      // Hide the processing indicator in case of an error
+      hideProcessingIndicator();
+
+      // Display the form submission error in the HTML
+      const submissionError = document.getElementById('submissionError');
+      submissionError.style.display = 'flex';
+    }
+    // Enable the submit button after form submission is complete
+    enableSubmitButton();
+  } else {
+    // If validation fails, enable the submit button to allow for corrections
+    enableSubmitButton();
+  }
+});
 
 
 
@@ -657,77 +637,5 @@ successMessage.addEventListener('transitionend', function () {
   }
 
   document.body.addEventListener('click', hidesubmissionErrorAndRefresh);
-
-
-
-
-
-
-
-
-
-
-
-  const numParticles = 200;
-  const particlesContainer = document.querySelector('.particles-container');
-  const mouse = { x: 0, y: 0 };
-
-  function createParticle() {
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    particle.style.left = Math.random() * 100 + 'vw';
-    particle.style.top = Math.random() * 100 + 'vh';
-    particle.style.animationDuration = (Math.random() * 3 + 1) + 's';
-    particle.style.animationDelay = (Math.random() * 2) + 's';
-    particlesContainer.appendChild(particle);
-
-    particle.addEventListener('animationiteration', () => {
-      particle.style.left = Math.random() * 100 + 'vw';
-      particle.style.top = -10 + 'vh';
-    });
-
-    return particle;
-  }
-
-  const particles = [];
-  for (let i = 0; i < numParticles; i++) {
-    particles.push(createParticle());
-  }
-
-  document.addEventListener('mousemove', (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-  });
-
-  function updateParticles() {
-    particles.forEach((particle) => {
-      const dx = mouse.x - particle.getBoundingClientRect().left;
-      const dy = mouse.y - particle.getBoundingClientRect().top;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      const maxDistance = 200; // Adjust this value to control the interaction range.
-
-      if (distance < maxDistance) {
-        const angle = Math.atan2(dy, dx);
-        const speed = 1 - distance / maxDistance; // Adjust this value to control the interaction strength.
-
-        const translateX = Math.cos(angle) * speed * 10;
-        const translateY = Math.sin(angle) * speed * 10;
-
-        particle.style.transform = `translate(${translateX}px, ${translateY}px) rotate(45deg)`;
-      } else {
-        particle.style.transform = 'none';
-      }
-    });
-
-    requestAnimationFrame(updateParticles);
-  }
-
-  updateParticles();
-
-
-
-
-
 
 </script>
