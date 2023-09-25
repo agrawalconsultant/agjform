@@ -10,6 +10,33 @@
 
 <body>
 
+
+  <div id="modeError" class="error-message" style="display: none;">
+    <h2>Please select a job receiving mode.</h2>
+  </div>
+  <div id="userAssignedError" class="error-message" style="display: none;">
+    <h2>Job User and Assigned By cannot be the same.</h2>
+  </div>
+  <div id="droperror" class="error-message" style="display: none;">
+    <h2>Please select valid values from the dropdown lists for Job User and Work Type.</h2>
+  </div>
+  <div id="assignedByerror" class="error-message" style="display: none;">
+    <h2>Please select the team member name from ASSIGNED BY.</h2>
+  </div>
+
+  <div id="teamAssignmentAlert" class="error-message" style="display: none;">
+    <h2>Assigned by is mandatory when BY TEAM is selected.</h2>
+  </div>
+
+  <div id="assignedByError" class="error-message" style="display: none;">
+    <h2>Please select a valid name from the ASSIGNED BY dropdown.</h2>
+  </div>
+
+  <div id="paymentError" class="error-message" style="display: none;">
+    <h2>Please select a valid payment status from the dropdown list.</h2>
+  </div>
+
+
   <!-- <div class="particles-container"></div> -->
 
 
@@ -27,7 +54,6 @@
       </div>
     </div>
   </div>
-
 
 
   <div id="processingIndicator" class="">
@@ -126,34 +152,6 @@
         </div>
       </div>
     </div>
-
-
-
-    <div id="modeError" class="error-message" style="display: none;">
-      Please select a job receiving mode.
-    </div>
-    <div id="userAssignedError" class="error-message" style="display: none;">
-      Job User and Assigned By cannot be the same.
-    </div>
-    <div id="droperror" class="error-message" style="display: none;">
-      Please select valid values from the dropdown lists for Job User and Work Type.
-    </div>
-    <div id="assignedByerror" class="error-message" style="display: none;">
-      Please select the team member name from ASSIGNED BY.
-    </div>
-
-    <div id="teamAssignmentAlert" class="error-message" style="display: none;">
-      Assigned by is mandatory when BY TEAM is selected.
-    </div>
-
-    <div id="assignedByError" class="error-message" style="display: none;">
-      Please select a valid name from the ASSIGNED BY dropdown.
-    </div>
-
-    <div id="paymentError" class="error-message" style="display: none;">
-      Please select a valid payment status from the dropdown list.
-    </div>
-
 
 
     <div id="assignedByFieldContainer">
@@ -369,7 +367,7 @@
     if (!isModeSelected) {
       // Display the error message for mode selection
       const modeError = document.getElementById('modeError');
-      modeError.style.display = 'block';
+      modeError.style.display = 'flex';
       modeError.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -382,7 +380,7 @@
     if (selectedJobUser === selectedAssignedBy) {
       // Display the error message for both being the same
       const userAssignedError = document.getElementById('userAssignedError');
-      userAssignedError.style.display = 'block';
+      userAssignedError.style.display = 'flex';
       userAssignedError.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -395,7 +393,7 @@
     if (mode3RadioButton.checked && selectedAssignedBy.trim() === '') {
       // Show the alert message for team assignment
       const teamAssignmentAlert = document.getElementById('teamAssignmentAlert');
-      teamAssignmentAlert.style.display = 'block';
+      teamAssignmentAlert.style.display = 'flex';
       teamAssignmentAlert.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -408,7 +406,7 @@
     if (mode3RadioButton.checked && !isValueInDropdown(selectedAssignedBy, document.querySelectorAll(".dropdown-content")[1])) {
       // Show the error message for invalid assigned by value
       const assignedByError = document.getElementById('assignedByError');
-      assignedByError.style.display = 'block';
+      assignedByError.style.display = 'flex';
       assignedByError.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -423,7 +421,7 @@
     ) {
       // Display the error message for both being the same
       const droperror = document.getElementById('droperror');
-      droperror.style.display = 'block';
+      droperror.style.display = 'flex';
       droperror.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -441,7 +439,7 @@
     if (!isPaymentInDropdown) {
       // Display an error message for invalid payment
       const paymentError = document.getElementById('paymentError');
-      paymentError.style.display = 'block';
+      paymentError.style.display = 'flex';
       paymentError.scrollIntoView({ behavior: "smooth" });
       return false;
     } else {
@@ -568,10 +566,10 @@
               }, "\r");
               document.querySelector("table").innerHTML = tr;
 
-              // Check if the <tbody> element is present in the table
+
               let tbodyElement = document.querySelector("table tbody");
               if (tbodyElement) {
-                // Hide the processing indicator
+
                 let successMessage = document.getElementById("successMessage");
                 let jb = document.getElementById("jb");
                 if (successMessage) {
@@ -614,6 +612,13 @@
 
 
   // Add a click event listener to the document body to hide the mode error message
+  function hideModeError() {
+    const Errors = document.getElementById('errors');
+    Errors.style.display = 'none';
+  }
+  document.body.addEventListener('click', hideModeError);
+
+
   function hideModeError() {
     const modeError = document.getElementById('modeError');
     modeError.style.display = 'none';
