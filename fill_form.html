@@ -19,10 +19,31 @@
   </div> -->
 
 
-  <div id="processingIndicator" class="modal">
-    <div class="pro-content">
-      <h2>Processing...</h2>
-      <p>Please wait while we submit your data.</p>
+  <div id="jb" style="display: none;">
+    <div class="fetch">
+      <h2>Getting Details</h2>
+      <div class="progress">
+        <div class="progress-value"></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="processingIndicator" class="">
+    <div class="loading">
+      <h1>
+        <span class="let1">S</span>
+        <span class="let2">U</span>
+        <span class="let3">B</span>
+        <span class="let4">M</span>
+        <span class="let5">I</span>
+        <span class="let6">T</span>
+        <span class="let7">T</span>
+        <span class="let8">I</span>
+        <span class="let9">N</span>
+        <span class="let10">g</span>
+      </h1>
     </div>
   </div>
 
@@ -229,20 +250,21 @@
     const dropdownContent4 = document.querySelectorAll(".dropdown-content")[3];
 
 
-
     // Function to handle the keydown event
     function handleKeyDown(event) {
       const successModal = document.getElementById('successMessage');
-      const okayButton = document.getElementById('okayButton');
 
-      if (event.key === 'Enter' && successModal.style.display === 'block') {
+      if (event.key === 'Enter' && successModal.style.display === 'none') {
         // Prevent the default behavior of the Enter key
         event.preventDefault();
 
-        // Trigger a click on the "Okay" button
-        okayButton.click();
+        // Optionally, you can trigger a click on the "Okay" button
+        // const okayButton = document.getElementById('okayButton');
+        // okayButton.click();
       }
     }
+
+
 
     // Add a keydown event listener to the document body
     document.body.addEventListener('keydown', handleKeyDown);
@@ -457,7 +479,10 @@
   // Function to hide the processing indicator
   function hideProcessingIndicator() {
     const processingIndicator = document.getElementById('processingIndicator');
+    const jb = document.getElementById('jb');
     processingIndicator.style.display = 'none';
+    jb.style.display = 'block';
+
   }
 
   // Function to display the success message modal
@@ -469,8 +494,8 @@
     submittedDataContainer.innerHTML = formData;
 
     setTimeout(function () {
-    successModal.style.display = 'block';
-  }, 3000); // 3000 milliseconds (3 seconds)
+      successModal.style.display = 'none';
+    }, 0);
 
 
     const okayButton = document.getElementById('okayButton');
@@ -509,80 +534,82 @@
 
 
   form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  disableSubmitButton(); // Disable the submit button when the form is submitted
-  if (await validateFormSubmission()) {
-    // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
-    const mode3RadioButton = document.getElementById('mode3');
-    const assignedByInput = document.querySelector('#searchInput2');
+    e.preventDefault();
+    disableSubmitButton(); // Disable the submit button when the form is submitted
+    if (await validateFormSubmission()) {
+      // Check if the "Assigned by" field is mandatory when "BY TEAM" is selected
+      const mode3RadioButton = document.getElementById('mode3');
+      const assignedByInput = document.querySelector('#searchInput2');
 
-    showProcessingIndicator(); // Show the processing indicator while submitting
+      showProcessingIndicator(); // Show the processing indicator while submitting
 
-    // Capture the current date and time
-    const currentDateTime = new Date().toLocaleString();
+      // Capture the current date and time
+      const currentDateTime = new Date().toLocaleString();
 
-    // Set the current date and time as the value of the "time" field
-    document.getElementById('time').value = currentDateTime;
+      // Set the current date and time as the value of the "time" field
+      document.getElementById('time').value = currentDateTime;
 
-    const formData = new FormData(form);
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
+      const formData = new FormData(form);
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          body: formData,
+        });
 
-      if (response.ok) {
-        const result = await response.text();
-        console.log(result);
-   fetch('https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec')
-  .then(res => res.json())
-  .then(data => {
-    let tr = data.content.reduce((prev, cur) => {
-      let td = cur.map(e => `<td>${e}</td>`)
-      return prev + `<tr>${td.join("")}</tr>`
-    }, "\r");
-    document.querySelector("table").innerHTML = tr;
+        if (response.ok) {
+          const result = await response.text();
+          console.log(result);
+          fetch('https://script.google.com/macros/s/AKfycbxuNM4rAn6-RuDbnGhvRaw97hjwzkBBXwEXA7RpDR_jq3F1uySddhHUpTuHG2HABLnzEA/exec')
+            .then(res => res.json())
+            .then(data => {
+              let tr = data.content.reduce((prev, cur) => {
+                let td = cur.map(e => `<td>${e}</td>`)
+                return prev + `<tr>${td.join("")}</tr>`
+              }, "\r");
+              document.querySelector("table").innerHTML = tr;
 
-    // Check if the <tbody> element is present in the table
-    let tbodyElement = document.querySelector("table tbody");
-    if (tbodyElement) {
-      // Hide the processing indicator
-      let processingIndicator = document.getElementById("processing-indicator");
-      if (processingIndicator) {
-        processingIndicator.style.display = "none";
+              // Check if the <tbody> element is present in the table
+              let tbodyElement = document.querySelector("table tbody");
+              if (tbodyElement) {
+                // Hide the processing indicator
+                let successMessage = document.getElementById("successMessage");
+                let jb = document.getElementById("jb");
+                if (successMessage) {
+                  successMessage.style.display = "block";
+                }
+                if (jb) {
+                  jb.style.display = "none";
+                }
+              }
+            });
+          // Display success message with submitted data
+          displaySuccessModal(getSubmittedFormData(formData));
+
+          // Hide the processing indicator after 3 seconds (3000 milliseconds)
+          setTimeout(() => {
+            hideProcessingIndicator();
+          }, 0);
+        } else {
+          // Handle HTTP errors (e.g., 404, 500, etc.)
+          throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error:", error);
+
+        // Hide the processing indicator in case of an error
+        hideProcessingIndicator();
+
+        // Display the form submission error in the HTML
+        const submissionError = document.getElementById('submissionError');
+        submissionError.style.display = 'flex';
       }
+      // Enable the submit button after form submission is complete
+      enableSubmitButton();
+    } else {
+      // If validation fails, enable the submit button to allow for corrections
+      enableSubmitButton();
     }
   });
-        // Display success message with submitted data
-        displaySuccessModal(getSubmittedFormData(formData));
-
-        // Hide the processing indicator after 3 seconds (3000 milliseconds)
-        setTimeout(() => {
-          hideProcessingIndicator();
-        }, 3000);
-      } else {
-        // Handle HTTP errors (e.g., 404, 500, etc.)
-        throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-
-      // Hide the processing indicator in case of an error
-      hideProcessingIndicator();
-
-      // Display the form submission error in the HTML
-      const submissionError = document.getElementById('submissionError');
-      submissionError.style.display = 'flex';
-    }
-    // Enable the submit button after form submission is complete
-    enableSubmitButton();
-  } else {
-    // If validation fails, enable the submit button to allow for corrections
-    enableSubmitButton();
-  }
-});
-
-
 
 
 
